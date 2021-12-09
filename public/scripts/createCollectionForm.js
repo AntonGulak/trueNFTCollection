@@ -322,7 +322,8 @@ const onSubmit = async () => {
 
         if (param.type === "enum") {
             const enumParam = {
-                name: `_${param.name}` + "{" + param.variantList.toString() + "}"
+                name: `_${param.name}` + "{" + param.variantList.toString() + "}",
+                type: 'enum'
             }
             paramsToSend.push(enumParam)
         } else if (param && Object.keys(param).length) {
