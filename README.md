@@ -1,5 +1,5 @@
 
-# Product Name
+# NFT collection distributor
 > Short blurb about what your product does.
 
 [![NPM Version][npm-image]][npm-url]
