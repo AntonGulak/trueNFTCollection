@@ -19,7 +19,7 @@ Example: 0:4de52efe97e4333b56536f2b216c02d7ae3326cdc02364a3c3ab7e2d420629da
   
 ## To run DeBot on TON Surf
 <ul dir="auto">
-  <li>Go to <a href = "https://web.ton.surf">TON Surff</a></li>
+  <li>Go to <a href = "https://web.ton.surf">Ton Surf</a></li>
   <li>Enter your DeBot address on window "Browse DeBots"</li>
  <li>Follow the instructions</li>
  </ul>
