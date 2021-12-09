@@ -63,8 +63,17 @@
     margin-bottom: 10px;
 }
 
+.importButton {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
 .last-in-param {
     border-color: black;
     border-bottom: solid;
+}
+
+#model-input {
+    display: none;
 }
 

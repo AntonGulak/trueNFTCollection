@@ -390,9 +390,31 @@ const save = async () => {
     download(`http://localhost:8081/${data.filename}`, "collectionParams")
 }
 
+const importModel = () => {
+    $("#model-input").trigger("click")
+}
+
 function download(fileUrl, fileName) {
     var a = document.createElement("a");
     a.href = fileUrl;
     a.setAttribute("download", fileName);
     a.click();
 }
+
+$("#model-input").on("change", async (e) => { 
+    const dataFile = e.target.files[0]
+    const reader = new FileReader()
+
+    reader.onload = async () => {
+        const collection = JSON.parse(reader.result)
+        await fetch("/createCollection", {
+            method: "POST",
+            body: JSON.stringify(collection),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+    }
+
+    reader.readAsText(dataFile)
+})
