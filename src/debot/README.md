@@ -33,3 +33,4 @@ Example: 0:4de52efe97e4333b56536f2b216c02d7ae3326cdc02364a3c3ab7e2d420629da
 <ul dir="auto">
 <li>Run <code>tonos-cli --url https://net.ton.dev debot --debug fetch (your DeBot address)</code></li>
  <li>Follow the instructions</li>
+</ul>
