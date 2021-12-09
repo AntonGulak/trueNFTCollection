@@ -349,3 +349,49 @@ const onSubmit = async () => {
 
     $("#collection-form").trigger("submit")
 }
+
+const save = async () => {
+    const collectionName = $("#collectionNameInput").val()
+    const paramsToSend = []
+
+    for (let param of params) {
+        if (keywords.has(param.name)) {
+            alert("Param has a forbidden word in it's name")
+            $("#collection-form").submit((e) => e.preventDefault())
+            return
+        }
+
+        if (param.type === "enum") {
+            const enumParam = {
+                name: `_${param.name}` + "{" + param.variantList.toString() + "}"
+            }
+            paramsToSend.push(enumParam)
+        } else if (param && Object.keys(param).length) {
+            paramsToSend.push(param)
+        }
+    }
+
+    const collection = {
+        rootName: collectionName,
+        raritiesList: tokens,
+        paramsData: paramsToSend
+    }
+
+    const response = await fetch("/saveCollectionParams", {
+        method: "POST",
+        body: JSON.stringify(collection),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    const data = await response.json()
+    download(`http://localhost:8081/${data.filename}`, "collectionParams")
+}
+
+function download(fileUrl, fileName) {
+    var a = document.createElement("a");
+    a.href = fileUrl;
+    a.setAttribute("download", fileName);
+    a.click();
+}
