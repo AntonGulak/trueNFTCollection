@@ -98,6 +98,30 @@
 			]
 		},
 		{
+			"name": "addRarityParam",
+			"inputs": [
+				{"name":"index","type":"uint32"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "addRarityName",
+			"inputs": [
+				{"name":"value","type":"bytes"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "setRarityAmount",
+			"inputs": [
+				{"name":"value","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
 			"name": "nftParamsInputRarity",
 			"inputs": [
 				{"name":"index","type":"uint32"}
@@ -107,6 +131,14 @@
 		},
 		{
 			"name": "nftParamsSetRarity",
+			"inputs": [
+				{"name":"value","type":"bytes"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "nftParamsSetMedia",
 			"inputs": [
 				{"name":"value","type":"bytes"}
 			],
@@ -157,7 +189,39 @@
 				{"name":"addrData","type":"address"},
 				{"name":"addrRoot","type":"address"},
 				{"name":"addrOwner","type":"address"},
-				{"name":"addrTrusted","type":"address"}
+				{"name":"addrTrusted","type":"address"},
+				{"name":"rarityName","type":"bytes"},
+				{"name":"url","type":"bytes"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "resolveRarityAddition",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "onAddRaritySuccess",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "onError",
+			"inputs": [
+				{"name":"sdkError","type":"uint32"},
+				{"name":"exitCode","type":"uint32"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "printRaritiesList",
+			"inputs": [
 			],
 			"outputs": [
 			]
@@ -172,67 +236,10 @@
 		{
 			"name": "setNftAddr",
 			"inputs": [
+				{"name":"code","type":"cell"},
+				{"name":"totalMinted","type":"uint256"}
 			],
 			"outputs": [
-			]
-		},
-		{
-			"name": "getAllNftData",
-			"inputs": [
-				{"name":"index","type":"uint32"}
-			],
-			"outputs": [
-			]
-		},
-		{
-			"name": "getNftDataByHash",
-			"inputs": [
-				{"components":[{"name":"id","type":"address"},{"name":"data","type":"cell"}],"name":"accounts","type":"tuple[]"}
-			],
-			"outputs": [
-			]
-		},
-		{
-			"name": "getNftData",
-			"inputs": [
-				{"name":"addrData","type":"address"}
-			],
-			"outputs": [
-			]
-		},
-		{
-			"name": "setDataCode",
-			"inputs": [
-				{"name":"codeData","type":"cell"}
-			],
-			"outputs": [
-			]
-		},
-		{
-			"name": "setNftData",
-			"inputs": [
-				{"name":"addrOwner","type":"address"},
-				{"name":"addrData","type":"address"}
-			],
-			"outputs": [
-			]
-		},
-		{
-			"name": "printNftData",
-			"inputs": [
-			],
-			"outputs": [
-			]
-		},
-		{
-			"name": "_buildNftDataPrint",
-			"inputs": [
-				{"name":"id","type":"uint256"},
-				{"name":"nftData","type":"address"},
-				{"name":"ownerAddress","type":"address"}
-			],
-			"outputs": [
-				{"name":"str","type":"bytes"}
 			]
 		},
 		{

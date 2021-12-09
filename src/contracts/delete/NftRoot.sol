@@ -5,18 +5,20 @@ pragma AbiHeader time;
 
 import './resolvers/IndexResolver.sol';
 import './resolvers/DataResolver.sol';
+
 import './IndexBasis.sol';
+
 import './interfaces/IData.sol';
 import './interfaces/IIndexBasis.sol';
-import "./libraries/Common.sol";
 
 contract NftRoot is DataResolver, IndexResolver {
-
-    //ERRORS
+    //Errors
     uint8 constant NOT_OWNER_ERROR = 110;
     uint8 constant RARITY_AMOUNT_MISMATCH = 111;
     uint8 constant NON_EXISTENT_RARITY = 112;
     uint8 constant RARITY_OVERFLOW = 113;
+
+    string abiString;
     
     uint _totalMinted;
     address _addrBasis;
@@ -26,12 +28,17 @@ contract NftRoot is DataResolver, IndexResolver {
 
     // To limit the tokens amount
     uint _tokensLimit;
-    mapping (bytes => uint) _rarityTypes;
+    mapping (string => uint) _rarityTypes;
     // To count when tokens are created
-    mapping (bytes => uint) _rarityMintedCounter;
+    mapping (string => uint) _rarityMintedCounter;
 
     bytes _rootIcon;
     string _rootName;
+
+    struct Rarity {
+        string rarityName;
+        uint amount;
+    }
 
     modifier onlyOwner() {
         require(msg.pubkey() == tvm.pubkey(), NOT_OWNER_ERROR, "Only owner can do this operation");
@@ -46,7 +53,7 @@ contract NftRoot is DataResolver, IndexResolver {
     function setIcon(bytes icon) public onlyOwner{
         _rootIcon = icon;
     }
-
+ 
     constructor(
         string rootName,
         bytes rootIcon,
@@ -61,6 +68,9 @@ contract NftRoot is DataResolver, IndexResolver {
             "The number of tokens does not correspond to the total number of their types"
         );
         tvm.accept();
+
+        abiString =  '/*ABI*/';
+
 
         createRarityTypes(raritiesList);
         setName(rootName);
@@ -78,7 +88,7 @@ contract NftRoot is DataResolver, IndexResolver {
         }
     }
 
-    function checkRaritiesCorrectness(Rarity[] listOfRarities, uint tokensLimit) private pure returns (bool) {
+    function checkRaritiesCorrectness(Rarity[] listOfRarities, uint tokensLimit) private returns (bool) {
         // Checks if the sum of the entered rarity is equal to the total number of tokens
         uint raritySumm = 0;
         for (uint256 i = 0; i < listOfRarities.length; i++) {
@@ -88,14 +98,14 @@ contract NftRoot is DataResolver, IndexResolver {
         return raritySumm == tokensLimit;
     }
 
-    function mintNft(string rarityName) public {
+    function mintNft(string rarity/*PARAM_MINT_FUNCTION*/) public {
         require(
-            _rarityTypes.exists(rarityName), 
+            _rarityTypes.exists(rarity), 
             NON_EXISTENT_RARITY, 
             "Such tokens there isn't in this collection"
         );
         require(
-            _rarityMintedCounter[rarityName] < _rarityTypes[rarityName],
+            _rarityMintedCounter[rarity] < _rarityTypes[rarity],
             RARITY_OVERFLOW,
             "Tokens of this type can no longer be created"
         );
@@ -107,25 +117,20 @@ contract NftRoot is DataResolver, IndexResolver {
             stateInit: stateData, 
             value: 1.1 ton, 
             bounce: false
-        }(msg.sender, _codeIndex, rarityName);
+        }(msg.sender, _codeIndex, rarity/*PARAM_MINT*/);
 
         _totalMinted++;
-        _rarityMintedCounter[rarityName]++;
+        _rarityMintedCounter[rarity]++;
     }
 
-    function getTokenData() public returns(TvmCell code, uint totalMinted) {
-        tvm.accept();
-        _totalMinted = totalMinted;
-        _codeData = code;
-    }
+    function deployBasis(TvmCell codeIndexBasis) public {
+        require(msg.value > 0.5 ton, 104);
 
-
-    function deployBasis(TvmCell codeIndexBasis) public onlyOwner {
-        uint256 codeHashData = resolveCodeHashData();
+        uint256 codeHasData = resolveCodeHashData();
         TvmCell state = tvm.buildStateInit({
             contr: IndexBasis,
             varInit: {
-                _codeHashData: codeHashData,
+                _codeHashData: codeHasData,
                 _addrRoot: address(this)
             },
             code: codeIndexBasis
@@ -140,5 +145,8 @@ contract NftRoot is DataResolver, IndexResolver {
     function destructBasis() public view {
         IIndexBasis(_addrBasis).destruct();
     }
-
+    
+    function getAddrBasis() public view returns (address addrBasis) {
+       addrBasis = _addrBasis;
+    }
 }
