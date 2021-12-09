@@ -339,7 +339,7 @@ const onSubmit = async () => {
         paramsData: paramsToSend
     }
     
-    await fetch("/my-sample/create-collection", {
+    await fetch("/createCollection", {
         method: "POST",
         body: JSON.stringify(collection),
         headers: {
@@ -363,6 +363,7 @@ const save = async () => {
 
         if (param.type === "enum") {
             const enumParam = {
+                type: "enum",
                 name: `_${param.name}` + "{" + param.variantList.toString() + "}"
             }
             paramsToSend.push(enumParam)
