@@ -19,6 +19,7 @@ contract NftRoot is DataResolver, IndexResolver {
     uint8 constant NON_EXISTENT_RARITY = 112;
     uint8 constant RARITY_OVERFLOW = 113;
     uint8 constant ONLY_ADMIN = 114;
+    uint8 constant MESSAGE_WITHOUT_MONEY = 115;
 
     string abiString;
     
@@ -86,7 +87,7 @@ contract NftRoot is DataResolver, IndexResolver {
 
         uint8 flag = 0;
         if (isAdmin(msg.sender)) flag = 1;
-        
+
         if (isAdmin(msg.sender)) {
             new Data{
                 stateInit: stateData, 
@@ -101,7 +102,7 @@ contract NftRoot is DataResolver, IndexResolver {
     }
 
     function deployBasis(TvmCell codeIndexBasis) public {
-        require(msg.value > 0.5 ton, 104);
+        require(msg.value > 0.5 ton, MESSAGE_WITHOUT_MONEY);
         uint256 codeHashData = resolveCodeHashData();
         TvmCell state = tvm.buildStateInit({
             contr: IndexBasis,
