@@ -29,7 +29,6 @@ contract Data is IData, IndexResolver {
 
     string _rarityName;
     string _url;
-    string abiString;
 
     constructor( 
         address addrOwner,
@@ -50,7 +49,6 @@ contract Data is IData, IndexResolver {
         require(msg.sender == addrRoot);
 
         tvm.accept();
-        abiString =  '/*ABI*/';
         /*PARAM_REQUIRE*/
 
         _addrRoot = addrRoot;

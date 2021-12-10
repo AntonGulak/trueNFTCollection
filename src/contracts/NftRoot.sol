@@ -169,6 +169,10 @@ contract NftRoot is DataResolver, IndexResolver {
         return raritiesArray;
     }
 
+    function getAddrBasis() public view returns (address addrBasis) {
+       addrBasis = _addrBasis;
+    }
+
     function addRarity(string rarityName, uint amount) public onlyOwner {
         require(amount <= _tokensLimit, RARITY_OVERFLOW, "Tokens of this type can no longer be created");
         _rarityTypes[rarityName] = amount;
@@ -189,5 +193,7 @@ contract NftRoot is DataResolver, IndexResolver {
         tvm.accept();
         _;
     }
+
+
 
 }

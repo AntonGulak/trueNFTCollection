@@ -19,7 +19,6 @@ class TokensInfoFormHandler {
         });
         console.log(tokensInfoForm)
     }
-
 }
 
 export const { tokensInfoFormHandler } = new TokensInfoFormHandler()
