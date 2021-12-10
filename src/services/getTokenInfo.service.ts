@@ -1,6 +1,5 @@
 import { ResultOfDecodeAccountData, TonClient } from "@tonclient/core";
 import { networks } from '../config/networks';
-//import { dataAbi } from "../contracts/abi/dataAbi";
 import fs from "fs";
 import { globals } from '../config/globals';
 
