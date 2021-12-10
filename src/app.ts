@@ -6,7 +6,6 @@ import fileUpload from 'express-fileupload';
 import { globals } from './config/globals';
 
 import { indexRouter } from './routes/index';
-import { sampleRouter } from './routes/sample';
 import { tokensInfoForm } from './routes/tokensInfoForm';
 import { tokensListRouter } from './routes/tokensList';
 import { collectionsListRouter } from './routes/collectionsList';
@@ -30,7 +29,6 @@ app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:500
 app.use(bodyParser.json({limit: "50mb"}));
 
 app.use('/', indexRouter);
-app.use('/my-sample', sampleRouter);
 app.use('/tokensInfoForm', tokensInfoForm);
 app.use('/tokensList', tokensListRouter);
 app.use('/collectionsList', collectionsListRouter);
