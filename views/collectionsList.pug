@@ -6,7 +6,9 @@ block content
       each collection in collections
         div.collection-container
           p.text-dark Collection name: #{collection.rootName}
-          p.text-dark Icon: #{collection.rootIcon}
+          p.text-dark Collection icon:
+          - const img = collection.rootIcon
+          img(src=img, alt="img")
           p.text-dark Tokens list:
 
           each token in collection.raritiesList
