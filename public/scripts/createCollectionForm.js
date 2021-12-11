@@ -429,9 +429,21 @@ $("#image-input").on("change", async (e) => {
         console.log("here")
         const fileObject = e.target.files[0]
         const reader = new FileReader()
-        reader.onload = () => {
-            const base64Image = reader.result
-            collectionImageData = base64Image
+        reader.onload = async () => {
+            const base64 = reader.result
+            const link = await fetch(
+                "/loadIPFS",
+                {
+                    method: "POST",
+                    body: JSON.stringify({ "base64": base64 }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            )
+            
+            const data = await link.json()
+            collectionImageData = data.link
         }
 
         reader.readAsDataURL(fileObject)
