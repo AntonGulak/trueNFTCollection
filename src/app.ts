@@ -13,6 +13,7 @@ import { saveCollectionParams } from './routes/saveCollectionParams';
 import { createCollectionRouter } from './routes/createCollection';
 import { loadIPFSRouter } from './routes/loadIPFS';
 import { debotRouter } from './routes/debot';
+import { settingsRouter } from './routes/settings';
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use('/saveCollectionParams', saveCollectionParams);
 app.use('/loadIPFS', loadIPFSRouter);
 app.use("/createCollection", createCollectionRouter);
 app.use("/debot", debotRouter);
+app.use("/settings", settingsRouter);
 
 app.use((req: Request, res: Response) => {
     res.status(404);
