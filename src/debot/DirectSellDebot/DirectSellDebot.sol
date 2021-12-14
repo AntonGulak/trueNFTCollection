@@ -174,7 +174,7 @@ contract DirectSellDeboot is Debot {
         AddressInput.get(tvm.functionId(getNftAddress), "Please enter address of NFT which you want to sell");
     }
 
-        function getNftAddress(address value) public {
+    function getNftAddress(address value) public {
         Sdk.getAccountType(tvm.functionId(checkNftAccountStatus), value);
         _addrNFT = value;
 	}
