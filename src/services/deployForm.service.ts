@@ -7,6 +7,7 @@ import { RarityType } from '../models/rarity-model';
 import { CollectionModel } from '../models/collention-model';
 import { ContractGeneratorService } from './contractGenerator.service';
 import { globals } from '../config/globals';
+import { DeployDebotService } from './deployDebot.service';
 
 export class NFTCollectionJSON {
     //public static generate(jsonParameters: JSON) {
@@ -53,6 +54,9 @@ export class NFTCollectionJSON {
               fs.renameSync(trueNFTPath, path.join(globals.TEMP_PATH, rootAddress.substr(2)));
             }
             
+            //при создании коллекции сразу будет деплоиться дебот
+            let debotService = new DeployDebotService();
+            await debotService.deployDebot();
       }
     
 }
