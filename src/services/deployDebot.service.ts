@@ -58,44 +58,24 @@ export class DeployDebotService {
       
         const buf = Buffer.from(abiDebot, "ascii");
         const abi = buf.toString("hex");
-
-        console.log(abiDebot);
-        console.log(abi);
-        const localGiverContract = {
-            abi: await JSON.parse(walletSettings.ABI),
-            tvc: walletSettings.TVC,
-        };
-
-        const client = debotAccount.client;
-        const signer = signerKeys(walletSettings.KEYS); 
-
-        const localGiverAccount = new Account(localGiverContract, {
-            address: walletSettings.ADDRESS, 
-            signer,
-            client });
- 
+        
         try {
-            const payload = (await client.abi.encode_message_body({
-                abi: debotAccount.abi,
-                signer: debotAccount.signer,
-                is_internal: true,
-                call_set: {
-                    function_name: "setABI",
-                    input: {
-                        dabi: abi
+            await debotAccount.client.processing.process_message({
+                message_encode_params: {
+                    abi: debotAccount.abi,
+                    address: debotAddress,
+                    signer: debotAccount.signer,
+                    call_set: {
+                        function_name: "setABI",
+                        input: {
+                            dabi: abi
+                        }
                     },
-                }
-            })).body;
-
-            await localGiverAccount.run("sendTransaction", {
-                dest: debotAddress,
-                value: 600_000_000,
-                flags: 3,
-                bounce: true,
-                payload: payload,
+                },
+                send_events: true,
             });
+            
 
-            console.log("Abi was setted.");
         } catch(err) {
             console.log(err);
         }

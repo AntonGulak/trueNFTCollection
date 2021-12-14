@@ -9,7 +9,7 @@ import { RarityType } from '../models/rarity-model';
 export class DeployTrueNFTContractsCollection {
 
     private readonly deployContractService: DeployContractService;
-    private readonly compilationPath: string = path.join(globals.DATA_SAMPLES_PATH, '/trueNFTContracts');
+    //private readonly compilationPath: string = path.join(globals.DATA_SAMPLES_PATH, '/trueNFTContracts');
 
     constructor() {
 

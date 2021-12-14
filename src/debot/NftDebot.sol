@@ -51,7 +51,7 @@ contract NftDebot is Debot, Upgradable {
     /// @notice Returns Metadata about DeBot.
     function getDebotInfo() public functionID(0xDEB) override view returns(
         string name, string version, string publisher, string key, string author,
-        address support, string hello, string language, string dabi, bytes icon
+        address support, string hello, string language, bytes icon
     ) {
         name = "NFT Debot";
         version = "1.4.2";
@@ -61,7 +61,7 @@ contract NftDebot is Debot, Upgradable {
         support = address(0);
         hello = "Hello, I am NFT Debot.";
         language = "en";
-        dabi = m_debotAbi.get();
+        //dabi = m_debotAbi.get();
         icon = "";
     }
 
