@@ -54,12 +54,10 @@ export class ContractGeneratorService {
         fs.copyFileSync(this.dataFile, dataFileTemp);
         fs.copyFileSync(this.indexFile, indexFileTemp);
         fs.copyFileSync(this.indexBasisFile, indexBasisFileTemp);
-
-        fs.copyFileSync(this.debotMinting, debotMintingDirTemp);
         
         let codeSourceRoot = fs.readFileSync(nftRootFileTemp).toString();
         let codeSourceData = fs.readFileSync(dataFileTemp).toString();
-        let codeSourceDebotMinting = fs.readFileSync(debotMintingDirTemp).toString();
+        let codeSourceDebotMinting = fs.readFileSync(this.debotMinting).toString();
 
         if (collection.paramsRoot != undefined) 
             codeSourceRoot = addSeveralParamsToRoot(codeSourceRoot, collection.paramsRoot);        
@@ -73,7 +71,7 @@ export class ContractGeneratorService {
         let service = new DeployContractService();
         await service.compileContract(codeSourceRoot, tempDir, 'NftRoot'); 
         await service.compileContract(codeSourceData, tempDir, 'Data');
-        await service.compileContract(codeSourceDebotMinting, tempDir, 'NftDebot');
+        //await service.compileContract(codeSourceDebotMinting, tempDir, 'NftDebot');
 
         
         fs.writeFileSync(nftRootFileTemp, codeSourceRoot);

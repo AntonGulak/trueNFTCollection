@@ -49,7 +49,7 @@ export class NFTCollectionJSON {
           }
 
           let debotService = new DeployDebotService();
-          debotService.deployDebot(trueNFTPath);
+          await debotService.deployDebot(trueNFTPath);
 
           const rootAddress = await deployTrueNFT.deployTrueNFTContracts(dataContract, indexContract, indexBasisContract, nftRootContract, 
             utf8ToHex(inputRootParamets.rootName), utf8ToHex(inputRootParamets.rootIcon), summLimit, inputRootParamets.raritiesList, trueNFTPath);

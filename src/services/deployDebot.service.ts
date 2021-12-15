@@ -4,7 +4,6 @@ import { libNode } from '@tonclient/lib-node';
 import fs from 'fs';
 import path from 'path';
 import { DeployContractService } from './deployContract.service';
-import { globals } from '../config/globals';
 
 TonClient.useBinaryLibrary(libNode);
 
@@ -18,11 +17,11 @@ export class DeployDebotService {
     }
 
 
-    async deployDebot(Tempdir: string) : Promise<string> {
-        let nftDebotAccount = await this.deployContractService.createAccount("NftDebot", Tempdir);
+    async deployDebot(Path: string) : Promise<string> {
+        let nftDebotAccount = await this.deployContractService.createAccount(await this.deployContractService.compileContract("NftDebot", Path), Path);
         console.log("NftDebot account created");
         let address = await this.deployDebotAccount(nftDebotAccount);
-        await this.setAbi(nftDebotAccount, Tempdir);
+        await this.setAbi(nftDebotAccount, Path);
         return address;
     }
     
@@ -50,11 +49,11 @@ export class DeployDebotService {
 
     private async setAbi(
         debotAccount: Account, 
-        Tempdir: string
+        Path: string
         ) : Promise<void> {
 
         let debotAddress = await debotAccount.getAddress();
-        let abiDebot = fs.readFileSync(path.resolve(Tempdir, 'NftDebot.abi.json'), "utf8");
+        let abiDebot = fs.readFileSync(path.resolve(Path, 'NftDebot.abi.json'), "utf8");
       
         const buf = Buffer.from(abiDebot, "ascii");
         const abi = buf.toString("hex");
