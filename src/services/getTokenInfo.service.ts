@@ -1,7 +1,7 @@
 import { ResultOfDecodeAccountData, TonClient } from "@tonclient/core";
 import { networks } from '../config/networks';
-import { dataAbi } from "../contracts/abi/dataAbi";
-import fs from 'fs';
+import fs from "fs";
+import { globals } from '../config/globals';
 
 const { abiContract } = require("@tonclient/core");
 
@@ -38,7 +38,7 @@ export class TokenInfoGetter {
     }
 
     async getTokenDecodedInfo(tokenData: string,  dirName: string): Promise<ResultOfDecodeAccountData> {
-        ///let dataAbi = await JSON.parse(fs.readFileSync(globals.TEMP_PATH + "\\" + dirName + "\\Data.abi.json").toString());
+        let dataAbi = await JSON.parse(fs.readFileSync(globals.TEMP_PATH + "\\" + dirName + "\\Data.abi.json").toString());
         const decodedDataOfToken = await this.client.abi.decode_account_data({
             abi: abiContract(dataAbi),  
             data: tokenData

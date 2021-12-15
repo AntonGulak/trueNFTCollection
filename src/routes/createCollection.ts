@@ -8,9 +8,7 @@ router.get("/", function(req, res, next) {
 })
 
 router.post("/", function(req, res, next) {
-    console.log(req.body)
     NFTCollectionJSON.deploy(req.body);
-    //deployForm.generate(req.body);
 })
   
 export {router as createCollectionRouter};

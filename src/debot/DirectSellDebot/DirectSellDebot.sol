@@ -58,7 +58,7 @@ interface IMultisig {
     ) external;
 
     function submitTransaction(
-        address  dest,
+        address dest,
         uint128 value,
         bool bounce,
         bool allBalance,

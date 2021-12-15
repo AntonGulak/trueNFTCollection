@@ -1,14 +1,11 @@
 import express from 'express';
 const router = express.Router();
+import { RarityType } from "../models/rarity-model"; 
 
-type NftToken = {
-    name: string
-    limit: number
-}
 
 type TokensInfoForm = {
     collectionName: string
-    nftTokens: NftToken[]
+    nftTokens: RarityType[]
 } 
 
 router.get('/', function(req, res, next) {
@@ -23,14 +20,14 @@ router.post('/', function(req, res, next) {
     }
     if (typeof req.body.tokenName != 'object') {
         tokensInfoForm.nftTokens.push( {
-        name: req.body.tokenName,
-        limit: req.body.tokenLimit} ) 
+        rarityName: req.body.tokenName,
+        amount: req.body.tokenLimit} ) 
     }
     else
     for (let i = 0; i < req.body.tokenName.length; i++) {
             tokensInfoForm.nftTokens.push({
-                name: req.body.tokenName[i],
-                limit: req.body.tokenLimit[i]
+                rarityName: req.body.tokenName[i],
+                amount: req.body.tokenLimit[i]
             })    
     }
     delete req.body
