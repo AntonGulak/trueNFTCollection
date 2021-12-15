@@ -6,12 +6,12 @@ Input arguments:
 init_data: None
 is_update_tvc: None
 
-Seed phrase: "wife second mask tank pilot heavy rebel purpose cream skirt hunt engage"
-Raw address: 0:03938c42bcba291d75d51e642af799b278ca3ac000ad972020454ab335477c70
+Seed phrase: "velvet rebel corn regret kangaroo bone pretty weather depth garbage scorpion later"
+Raw address: 0:60d2e69b938b222414f8b0984ffe6142d7547b6b82aea9793a4df23f9cf65ed6
 testnet:
-Non-bounceable address (for init): 0QADk4xCvLopHXXVHmQq95myeMo6wACtlyAgRUqzNUd8cGwP
-Bounceable address (for later access): kQADk4xCvLopHXXVHmQq95myeMo6wACtlyAgRUqzNUd8cDHK
+Non-bounceable address (for init): 0QBg0uabk4siJBT4sJhP_mFC11R7a4KuqXk6TfI_nPZe1vpn
+Bounceable address (for later access): kQBg0uabk4siJBT4sJhP_mFC11R7a4KuqXk6TfI_nPZe1qei
 mainnet:
-Non-bounceable address (for init): UQADk4xCvLopHXXVHmQq95myeMo6wACtlyAgRUqzNUd8cNeF
-Bounceable address (for later access): EQADk4xCvLopHXXVHmQq95myeMo6wACtlyAgRUqzNUd8cIpA
+Non-bounceable address (for init): UQBg0uabk4siJBT4sJhP_mFC11R7a4KuqXk6TfI_nPZe1kHt
+Bounceable address (for later access): EQBg0uabk4siJBT4sJhP_mFC11R7a4KuqXk6TfI_nPZe1hwo
 Succeeded
