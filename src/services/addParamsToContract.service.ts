@@ -118,10 +118,48 @@ class AddParamsToNftRootConstructor {
         return resultedContract
     }
 
+    
+    addSingleParamToDebot(codeSource: string, newDebot: Param): string {
+        
+        const def = '/*PARAM_DEFENITION*/';
+        const input = '/*TERMINAL INPUT*/';
+        const funSet = '/*FUNCTION SET*/';
+        const descript = '/*DESCRIPTION*/';
+        const payload = '/*DEBOT PAYLOAD*/';
+
+        const paramType = newDebot.type;
+        const paramName = newDebot.name;
+
+
+        let paramDef =  paramType + ' ' + paramName +  ';' + '\n\t' + def;
+        let paramTerminalInput: string;
+        let paramFunSet: string
+
+        if (paramType == 'string') {
+            paramTerminalInput = `Terminal.input(tvm.functionId(insert${paramName}), "Enter ${paramType}:  ${paramName}:", false);` + '\n\t';
+            paramFunSet = `function insert${paramName}(string value) public { _nftParams.${paramName} = value;}` + '\n\t';
+        }
+
+        if (paramType == 'int' && newDebot.minValue != undefined && newDebot.maxValue != undefined) {
+            paramTerminalInput = `AmountInput.get(tvm.functionId(insert${paramName}), "Enter ${paramType}:  ${paramName}:",  0, ${newDebot.minValue}, ${newDebot.maxValue});`  + '\n\t';
+            paramFunSet = `function insert${paramName}(uint128 value) public { _nftParams.${paramName} = value;}` + '\n\t';
+            
+        }
+
+
+        return codeSource
+            
+    }
 }
 
 export const { insertAbi } = new AddParamsToNftRootConstructor();
+
 export const { addSingleParamToData } = new AddParamsToNftRootConstructor();
 export const { addSeveralParamsToData } = new AddParamsToNftRootConstructor();
+
 export const { addSingleParamToRoot} = new AddParamsToNftRootConstructor();
 export const { addSeveralParamsToRoot } = new AddParamsToNftRootConstructor();
+
+export const { addSingleParamToDebot} = new AddParamsToNftRootConstructor();
+//export const { addSeveralParamsToDebot } = new AddParamsToNftRootConstructor();
+
