@@ -18,11 +18,11 @@ export class DeployDebotService {
     }
 
 
-    async deployDebot() : Promise<string> {
-        let nftDebotAccount = await this.deployContractService.createAccount("NftDebot", globals.DEBOT);
+    async deployDebot(Tempdir: string) : Promise<string> {
+        let nftDebotAccount = await this.deployContractService.createAccount("NftDebot", Tempdir);
         console.log("NftDebot account created");
         let address = await this.deployDebotAccount(nftDebotAccount);
-        await this.setAbi(nftDebotAccount);
+        await this.setAbi(nftDebotAccount, Tempdir);
         return address;
     }
     
@@ -50,10 +50,11 @@ export class DeployDebotService {
 
     private async setAbi(
         debotAccount: Account, 
+        Tempdir: string
         ) : Promise<void> {
 
         let debotAddress = await debotAccount.getAddress();
-        let abiDebot = fs.readFileSync(path.resolve(globals.DEBOT, 'NftDebot.abi.json'), "utf8");
+        let abiDebot = fs.readFileSync(path.resolve(Tempdir, 'NftDebot.abi.json'), "utf8");
       
         const buf = Buffer.from(abiDebot, "ascii");
         const abi = buf.toString("hex");

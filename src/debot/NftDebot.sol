@@ -14,9 +14,9 @@ import "./vendoring/ConfirmInput.sol";
 import "./vendoring/Upgradable.sol";
 import "./vendoring/Sdk.sol";
 
-import "../contracts/NftRoot.sol";
-import "../contracts/Data.sol";
-import '../contracts/interfaces/IData.sol';
+import "NftRoot.sol";
+import "Data.sol";
+import './interfaces/IData.sol';
 
 interface IMultisig {
 

@@ -132,24 +132,42 @@ class AddParamsToNftRootConstructor {
 
 
         let paramDef =  paramType + ' ' + paramName +  ';' + '\n\t' + def;
-        let paramTerminalInput: string;
-        let paramFunSet: string
+        let paramTerminalInput: string = input;
+        let paramFunSet: string = funSet;
 
         if (paramType == 'string') {
-            paramTerminalInput = `Terminal.input(tvm.functionId(insert${paramName}), "Enter ${paramType}:  ${paramName}:", false);` + '\n\t';
-            paramFunSet = `function insert${paramName}(string value) public { _nftParams.${paramName} = value;}` + '\n\t';
+            paramTerminalInput = `Terminal.input(tvm.functionId(insert${paramName}), "Enter ${paramType}:  ${paramName}:", false);` + '\n\t' + input;
+            paramFunSet = `function insert${paramName}(string value) public { _nftParams.${paramName} = value;}` + '\n\t' + funSet;
         }
 
         if (paramType == 'int' && newDebot.minValue != undefined && newDebot.maxValue != undefined) {
-            paramTerminalInput = `AmountInput.get(tvm.functionId(insert${paramName}), "Enter ${paramType}:  ${paramName}:",  0, ${newDebot.minValue}, ${newDebot.maxValue});`  + '\n\t';
-            paramFunSet = `function insert${paramName}(uint128 value) public { _nftParams.${paramName} = value;}` + '\n\t';
-            
+            paramTerminalInput = `AmountInput.get(tvm.functionId(insert${paramName}), "Enter ${paramType}:  ${paramName}:",  0, ${newDebot.minValue}, ${newDebot.maxValue});`  + '\n\t' + input;
+            paramFunSet = `function insert${paramName}(uint128 value) public { _nftParams.${paramName} = value;}` + '\n\t' + funSet;
         }
 
+        let paramDescription = `Terminal.print(0, format("${paramName}: {}", _nftParams.${paramName}));` + '\n\t' + descript;
+        const paramPayload =  ', '  + ' ' + `_nftParams.${paramName}` + payload;
+
+        codeSource = codeSource.replace(def, paramDef);
+        codeSource = codeSource.replace(input, paramTerminalInput);
+        codeSource = codeSource.replace(funSet, paramFunSet);
+        codeSource = codeSource.replace(descript, paramDescription);
+        codeSource = codeSource.replace(payload, paramPayload);
 
         return codeSource
-            
     }
+
+    addSeveralParamsToDebot(codeSource: string, newDebotArray: Array<Param>): string {
+        let resultedContract = codeSource;
+
+        newDebotArray.forEach(newData => {
+            resultedContract = addSingleParamToDebot(resultedContract, newData);
+        });
+
+        return resultedContract
+    }
+
+
 }
 
 export const { insertAbi } = new AddParamsToNftRootConstructor();
@@ -161,5 +179,5 @@ export const { addSingleParamToRoot} = new AddParamsToNftRootConstructor();
 export const { addSeveralParamsToRoot } = new AddParamsToNftRootConstructor();
 
 export const { addSingleParamToDebot} = new AddParamsToNftRootConstructor();
-//export const { addSeveralParamsToDebot } = new AddParamsToNftRootConstructor();
+export const { addSeveralParamsToDebot } = new AddParamsToNftRootConstructor();
 
