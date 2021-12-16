@@ -25,10 +25,13 @@ router.post('/', async function(req, res) {
     for(let token of tokensList) {
         try {
             const info = await infoGetter.getTokenInfo(token, dirName[1])
+            const convert = (from, to) => (data) => Buffer.from(data, from).toString(to);
+            const utf8ToHex = convert("utf8", "hex");
+            let _rarityType = utf8ToHex(info.data._rarityType);
             const tokenInfo =  {
                 tokenAddress: token,
                 ownerAddress: info.data._addrOwner,
-                rarityType: info.data._rarityType
+                rarityType: _rarityType
             }
             tokenInfoList.push(tokenInfo)
         } catch (error) {
