@@ -196,17 +196,18 @@ contract NftDebot is Debot, Upgradable {
             _nftParams.rarityName,
             _nftParams.url/*DEBOT PAYLOAD*/
         );
+        optional(uint256) none;
         IMultisig(_addrMultisig).sendTransaction {
             abiVer: 2,
             extMsg: true,
             sign: true,
-            pubkey: pubkey,
+            pubkey: none,
             time: uint64(now),
             expire: 0,
             callbackId: tvm.functionId(onNftDeploySuccess),
             onErrorId: tvm.functionId(onNftDeployError),
             signBoxHandle: _keyHandle
-        }(_addrNFTRoot, 2 ton, true, 3, payload);
+        }(_addrNFTRoot, 1 ton, true, 3, payload);
 
     }
     

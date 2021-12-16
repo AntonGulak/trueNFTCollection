@@ -7,7 +7,6 @@ import { globals } from "../config/globals";
 
 import { CollectionModel } from "../models/collention-model"; 
 import { addSeveralParamsToRoot, addSeveralParamsToData, addSeveralParamsToDebot} from "./addParamsToContract.service";
-import { DeployContractService } from './deployContract.service';
 import path from "path";
 
 
@@ -67,11 +66,6 @@ export class ContractGeneratorService {
 
             codeSourceDebotMinting = addSeveralParamsToDebot(codeSourceDebotMinting, collection.paramsData)
         }
-            
-        let service = new DeployContractService();
-        await service.compileContract(codeSourceRoot, tempDir, 'NftRoot'); 
-        await service.compileContract(codeSourceData, tempDir, 'Data');
-        //await service.compileContract(codeSourceDebotMinting, tempDir, 'NftDebot');
 
         
         fs.writeFileSync(nftRootFileTemp, codeSourceRoot);
