@@ -19,7 +19,7 @@ export class ContractGeneratorService {
     private librariesDir = join(globals.CONTRACTS_PATH, 'libraries');
     private resolversDir = join(globals.CONTRACTS_PATH, 'resolvers');
 
-    private debotLibraries = join(globals.DEBOT, 'vendoring');
+    private debotLibraries = join(globals.DEB, 'vendoring');
     private debotMinting = join(globals.DEBOT, 'NftDebot.sol');
     
 
