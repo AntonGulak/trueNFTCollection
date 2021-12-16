@@ -1,12 +1,10 @@
 import { Account } from '@tonclient/appkit';
-import { TonClient, signerKeys, ResultOfDecodeTvc } from '@tonclient/core';
+import { TonClient } from '@tonclient/core';
 import { libNode } from '@tonclient/lib-node';
 import fs from 'fs';
 import path from 'path';
-
-import { walletSettings } from '../config/walletKey';
 import { DeployContractService } from './deployContract.service';
-import { globals } from '../config/globals';
+
 
 
 TonClient.useBinaryLibrary(libNode);

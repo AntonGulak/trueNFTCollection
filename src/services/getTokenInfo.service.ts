@@ -12,7 +12,7 @@ export class TokenInfoGetter {
     constructor() {
         this.client = new TonClient({
             network: {
-                server_address: networks.TONDEV
+                server_address: networks.LOCALHOST
             }
         });
     }

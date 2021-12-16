@@ -20,7 +20,7 @@ export class ContractGeneratorService {
     private resolversDir = join(globals.CONTRACTS_PATH, 'resolvers');
 
     private debotLibraries = join(globals.DEB, 'vendoring');
-    private debotMinting = join(globals.DEBOT, 'NftDebot.sol');
+    private debotMinting = join(globals.DEBOTMINTING, 'NftDebot.sol');
     
 
      async generateContract(collection: CollectionModel): Promise<string> {

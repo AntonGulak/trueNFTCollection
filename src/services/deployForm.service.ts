@@ -10,7 +10,6 @@ import { globals } from '../config/globals';
 import { DeployDebotService } from './deployDebot.service';
 
 export class NFTCollectionJSON {
-    //public static generate(jsonParameters: JSON) {
       public static  async deploy(input: JSON) {
      
       
