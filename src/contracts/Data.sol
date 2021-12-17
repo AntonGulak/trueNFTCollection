@@ -154,6 +154,13 @@ contract Data is IData, IndexResolver {
         /*PARAM_ASSIGNMENT_GETINFO*/
         
     }
+    
+      function getRarity() public returns(
+        string rarityName
+    ) {
+        rarityName = _rarityName;
+    }
+
 
 
     function rightsTransferabilityStatus() public view override onlyOwnerOrTrusted returns(bool status) {

@@ -1,5 +1,6 @@
 import { globals } from '../config/globals';
 import fs from 'fs';
+import path from 'path';
 
 
 export class GetCollectionsList {
@@ -11,7 +12,8 @@ export class GetCollectionsList {
           })
         let collectionsInfoList : string[] = []
         for (const Dir of collectionDirList) {
-                let collectionInfoJson = await JSON.parse(fs.readFileSync(globals.TEMP_PATH + "\\" + Dir.name + '\\inputRootParameters.json').toString());
+                const inputRootParamsFile = path.resolve(globals.TEMP_PATH, Dir.name,  'inputRootParameters.json');
+                let collectionInfoJson = await JSON.parse(inputRootParamsFile).toString();
                 collectionsInfoList.push(collectionInfoJson);
         }
         return collectionsInfoList;
