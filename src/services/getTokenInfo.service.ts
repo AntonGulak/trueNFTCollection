@@ -41,16 +41,11 @@ export class TokenInfoGetter {
 
     async getTokenDecodedInfo(tokenData: string,  dirName: string): Promise<ResultOfDecodeAccountData> {
         let dataAbi = await JSON.parse(fs.readFileSync(globals.TEMP_PATH + "\\" + dirName + "\\Data.abi.json").toString());
-        console.log(tokenData);
-    
-      
+
         const decodedDataOfToken = await this.client.abi.decode_account_data({
             abi: await abiContract(dataAbi),  
             data: tokenData,
         });
-
-        console.log(decodedDataOfToken);
-
 
 
         return  decodedDataOfToken;

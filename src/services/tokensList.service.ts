@@ -21,7 +21,6 @@ export class GetTokensList {
         const indexBasisAdddress = await this.getAddrBasis(rootAddress, dirName);
         const codeHashData = await this.getHashCodeData(indexBasisAdddress, dirName);
         
-        console.log(codeHashData);
         let result = (await this.client.net.query_collection({
             collection: 'accounts',
             filter: {
@@ -34,6 +33,7 @@ export class GetTokensList {
         let tokensList : string[] = []
         for (var key in result)
             tokensList.push(result[key].id);
+        console.log(tokensList);
         return tokensList;
     }
 
