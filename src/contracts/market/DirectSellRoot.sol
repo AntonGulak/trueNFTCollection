@@ -62,7 +62,7 @@ contract DirectSellRoot {
         new DirectSell {
             stateInit: stateDirectSell,
             value: Constants.MIN_FOR_DIRECT_SELL_DEPLOY
-            }(now + durationInSec, price);
+            }(price, now + durationInSec);
 
         _totalSupply++;
         msg.sender.transfer({value: 0, flag: 128});
