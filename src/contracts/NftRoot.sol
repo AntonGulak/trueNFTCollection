@@ -21,8 +21,6 @@ contract NftRoot is DataResolver, IndexResolver {
     uint8 constant ONLY_ADMIN = 114;
     uint8 constant MESSAGE_WITHOUT_MONEY = 115;
 
-    string abiString;
-    
     uint _totalMinted;
     address _addrBasis;
 
@@ -44,6 +42,14 @@ contract NftRoot is DataResolver, IndexResolver {
         uint amount;
     }
 
+      function getRootInfo() public view returns (string rootName, string rootIcon, TvmCell codeIndex, TvmCell codeData, uint tokensLimit) {
+        rootName = _rootName;
+        rootIcon = _rootIcon;
+        codeIndex = _codeIndex;
+        codeData = _codeData;
+        tokensLimit = _tokensLimit;
+    }
+
     constructor(
         string rootName,
         string rootIcon,
@@ -58,8 +64,6 @@ contract NftRoot is DataResolver, IndexResolver {
             "The number of tokens does not correspond to the total number of their types"
         );
         tvm.accept();
-
-        abiString =  '/*ABI*/';
 
         createRarityTypes(raritiesList);
 
@@ -82,6 +86,8 @@ contract NftRoot is DataResolver, IndexResolver {
             "Tokens of this type can no longer be created"
         );
 
+        //require(msg.value >= Constants.MIN_FOR_MINTING_TOKEN, MESSAGE_WITHOUT_MONEY);
+
         TvmCell codeData = _buildDataCode(address(this));
         TvmCell stateData = _buildDataState(codeData, _totalMinted);
 
@@ -95,7 +101,7 @@ contract NftRoot is DataResolver, IndexResolver {
         new Data{
             stateInit: stateData, 
             value: value,
-            bounce: false,
+            bounce: true,
             flag: flag
         }(msg.sender, _codeIndex, rarityName, url/*PARAM_MINT*/);
         

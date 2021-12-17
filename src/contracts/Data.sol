@@ -12,8 +12,8 @@ contract Data is IData, IndexResolver {
     uint8 constant ERROR_LIMIT = 114;
 
     struct paramInfo { 
-        int min;
-        int max; 
+        uint min;
+        uint max; 
         bool required;
     }
     /*CONST*/
@@ -37,7 +37,7 @@ contract Data is IData, IndexResolver {
         string url
         /*PARAM_CONSTRUCTOR*/
     )
-        public 
+        public
     {
         mapping(string => paramInfo) valuesLimit;
         /*PARAM_LIMIT*/
@@ -146,6 +146,18 @@ contract Data is IData, IndexResolver {
         rarityName = _rarityName;
         url = _url;
     }
+
+    function getParamsInfo() public view  returns (
+        string rarityName,
+        string url
+        /*PARAM_GETINFO*/
+    ) {
+        rarityName = _rarityName;
+        url = _url;
+        /*PARAM_ASSIGNMENT_GETINFO*/
+        
+    }
+
 
     function rightsTransferabilityStatus() public view override onlyOwnerOrTrusted returns(bool status) {
         status = _isRightsTransferable;
