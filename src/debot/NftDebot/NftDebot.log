@@ -6,12 +6,12 @@ Input arguments:
 init_data: None
 is_update_tvc: None
 
-Seed phrase: "velvet rebel corn regret kangaroo bone pretty weather depth garbage scorpion later"
-Raw address: 0:60d2e69b938b222414f8b0984ffe6142d7547b6b82aea9793a4df23f9cf65ed6
+Seed phrase: "clean volume easily volume avoid stuff viable interest curtain picnic sunny actor"
+Raw address: 0:db1d2b6c6b84e223b525816bcddf3a0b1135720c67111e334b9f5406a95b258b
 testnet:
-Non-bounceable address (for init): 0QBg0uabk4siJBT4sJhP_mFC11R7a4KuqXk6TfI_nPZe1vpn
-Bounceable address (for later access): kQBg0uabk4siJBT4sJhP_mFC11R7a4KuqXk6TfI_nPZe1qei
+Non-bounceable address (for init): 0QDbHStsa4TiI7UlgWvN3zoLETVyDGcRHjNLn1QGqVsli9Ry
+Bounceable address (for later access): kQDbHStsa4TiI7UlgWvN3zoLETVyDGcRHjNLn1QGqVsli4m3
 mainnet:
-Non-bounceable address (for init): UQBg0uabk4siJBT4sJhP_mFC11R7a4KuqXk6TfI_nPZe1kHt
-Bounceable address (for later access): EQBg0uabk4siJBT4sJhP_mFC11R7a4KuqXk6TfI_nPZe1hwo
+Non-bounceable address (for init): UQDbHStsa4TiI7UlgWvN3zoLETVyDGcRHjNLn1QGqVsli2_4
+Bounceable address (for later access): EQDbHStsa4TiI7UlgWvN3zoLETVyDGcRHjNLn1QGqVslizI9
 Succeeded
