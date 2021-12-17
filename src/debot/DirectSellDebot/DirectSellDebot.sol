@@ -22,7 +22,10 @@ import "../../contracts/market/DirectSell.sol";
 interface IDirectSellRoot {
 
     function deployDirectSell(
-        address addrNFT
+        address directSellCreator,
+        uint64 durationInSec,
+        address addrNFT,
+        uint128 price 
     ) external;
 
     function getDirectSellAddress(
@@ -44,7 +47,7 @@ interface IDirectSell {
         uint64 endUnixtime
     );
 
-    function withdrawnNftToken() external;
+    function cancel() external;
 }
 
 interface IMultisig {

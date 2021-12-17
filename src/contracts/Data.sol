@@ -66,6 +66,7 @@ contract Data is IData, IndexResolver {
         public override
         onlyOwnerWithoutTrustedOrOnlyTrusted
     {
+        require (addrTo.value != 0, DataErr.NOT_OWNER, "Owner address is empty");
         address oldIndexOwner = resolveIndex(_addrRoot, address(this), _addrOwner);
         IIndex(oldIndexOwner).destruct();
         address oldIndexOwnerRoot = resolveIndex(address(0), address(this), _addrOwner);

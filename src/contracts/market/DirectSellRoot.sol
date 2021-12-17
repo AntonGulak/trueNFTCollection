@@ -65,7 +65,7 @@ contract DirectSellRoot {
             }(price, now + durationInSec);
 
         _totalSupply++;
-        msg.sender.transfer({value: 0, flag: 128});
+        directSellCreator.transfer({value: 0, flag: 128});
     }
 
     function getDirectSellAddress(
@@ -75,7 +75,7 @@ contract DirectSellRoot {
         public view 
         returns (
         address addrDirectSell
-        ) 
+    ) 
     {
         TvmCell stateDirectSell = tvm.buildStateInit({
             code: _codeDirectSell,

@@ -4,31 +4,29 @@ pragma AbiHeader expire;
 pragma AbiHeader time;
 pragma AbiHeader pubkey;
 
-import "../vendoring/Debot.sol";
-import "../vendoring/Terminal.sol";
-import "../vendoring/SigningBoxInput.sol";
-import "../vendoring/Menu.sol";
-import "../vendoring/AmountInput.sol";
-import "../vendoring/AddressInput.sol";
-import "../vendoring/ConfirmInput.sol";
-import "../vendoring/Upgradable.sol";
-import "../vendoring/Sdk.sol";
+import "./vendoring/Debot.sol";
+import "./vendoring/Terminal.sol";
+import "./vendoring/SigningBoxInput.sol";
+import "./vendoring/Menu.sol";
+import "./vendoring/AmountInput.sol";
+import "./vendoring/AddressInput.sol";
+import "./vendoring/ConfirmInput.sol";
+import "./vendoring/Upgradable.sol";
+import "./vendoring/Sdk.sol";
 
-import "../../contracts/NftRoot.sol";
-import "../../contracts/Data.sol";
-import '../../contracts/interfaces/IData.sol';
+import "NftRoot.sol";
+import "Data.sol";
+import './interfaces/IData.sol';
 
 interface IMultisig {
 
-    function submitTransaction(
+    function sendTransaction(
         address dest,
         uint128 value,
         bool bounce,
-        bool allBalance,
-        TvmCell payload)
-    external returns (
-        uint64 transId
-    );
+        uint8 flags,
+        TvmCell payload
+    ) external;
 
 }
 
@@ -168,7 +166,7 @@ contract NftDebot is Debot, Upgradable {
             _nftParams.rarityName,
             _nftParams.url/*DEBOT PAYLOAD*/
         );
-        IMultisig(_addrMultisig).submitTransaction {
+        IMultisig(_addrMultisig).sendTransaction {
             abiVer: 2,
             extMsg: true,
             sign: true,
@@ -178,7 +176,7 @@ contract NftDebot is Debot, Upgradable {
             callbackId: tvm.functionId(onNftDeploySuccess),
             onErrorId: tvm.functionId(onNftDeployError),
             signBoxHandle: _keyHandle
-        }(_addrNFTRoot, 2 ton, true, false, payload);
+        }(_addrNFTRoot, 2 ton, true, 3, payload);
 
     }
     
