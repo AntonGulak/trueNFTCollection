@@ -12,7 +12,7 @@ export class GetCollectionsList {
           })
         let collectionsInfoList : string[] = []
         for (const Dir of collectionDirList) {
-                const inputRootParamsFile = path.resolve(globals.TEMP_PATH, Dir.name,  'inputRootParameters.json');
+                const inputRootParamsFile = path.join(globals.TEMP_PATH, Dir.name,  'inputRootParameters.json');
                 let collectionInfoJson = await JSON.parse(inputRootParamsFile).toString();
                 collectionsInfoList.push(collectionInfoJson);
         }
