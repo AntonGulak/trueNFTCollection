@@ -14,22 +14,15 @@ contract DirectSell {
     address static _addrOwner;
     address static _addrNFT;
 
-    bool _alreadyBought = false;
-    bool _canceled = false;
+    bool _alreadyBought;
+    bool _withdrawn;
     bool _isNftTradable;
 
     uint128 _price;
     uint64 _endUnixtime;
 
-    constructor(
-        uint128 price,
-        uint64 endUnixtime
-    ) public {
+    constructor() public {
         require(msg.sender == _addrRoot, DirectSellErr.ONLY_ROOT, "Only root allowed");
-        tvm.accept();
-
-        _price = price;
-        _endUnixtime = endUnixtime;
     }
 
     function verifyNftTradability()
@@ -71,7 +64,7 @@ contract DirectSell {
         onlyOwner
         nftTransferSolvency
     {
-        require(_canceled == false, DirectSellErr.TOKEN_IS_WITHDRAWN, "Token is withdrawn");
+        require(_withdrawn == false, DirectSellErr.TOKEN_IS_WITHDRAWN, "Token is withdrawn");
         require (now < _endUnixtime, DirectSellErr.DEAL_EXPIRED, "Deal expired");
         require(_alreadyBought == false, DirectSellErr.ALREADY_BOUGHT, "Token is already bought");
 
@@ -98,7 +91,7 @@ contract DirectSell {
 
         tvm.accept();
 
-        _canceled = true;
+        _withdrawn = true;
 
         tvm.rawReserve(address(this).balance - msg.value, 0);
 
@@ -123,7 +116,7 @@ contract DirectSell {
         addrOwner = _addrOwner;
         addrNFT = _addrNFT;
         alreadyBought = _alreadyBought;
-        withdrawn = _canceled;
+        withdrawn = _withdrawn;
         isNftTradable = _isNftTradable;
         price = _price;
         endUnixtime = _endUnixtime;
@@ -132,7 +125,7 @@ contract DirectSell {
     function getIsCanceled() public view returns(
         bool isCanceled)
     {
-        isCanceled = _canceled;
+        isCanceled = _withdrawn;
     }
 
     function getIsAlreadBought() public view returns(

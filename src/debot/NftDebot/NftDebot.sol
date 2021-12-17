@@ -20,16 +20,13 @@ import './interfaces/IData.sol';
 
 interface IMultisig {
 
-    function submitTransaction(
+    function sendTransaction(
         address dest,
         uint128 value,
         bool bounce,
-        bool allBalance,
-        TvmCell payload)
-    external returns (
-        uint64 transId
-    );
-
+        uint8 flags,
+        TvmCell payload
+    ) external;
 }
 
 struct NftParams {
@@ -46,6 +43,9 @@ contract NftDebot is Debot, Upgradable {
     address _addrMultisig;
 
     uint32 _keyHandle;
+
+    string _rarityName;
+    uint _rarityAmount;
 
     NftParams _nftParams;
 
@@ -168,7 +168,7 @@ contract NftDebot is Debot, Upgradable {
             _nftParams.rarityName,
             _nftParams.url/*DEBOT PAYLOAD*/
         );
-        IMultisig(_addrMultisig).submitTransaction {
+        IMultisig(_addrMultisig).sendTransaction {
             abiVer: 2,
             extMsg: true,
             sign: true,
@@ -178,7 +178,7 @@ contract NftDebot is Debot, Upgradable {
             callbackId: tvm.functionId(onNftDeploySuccess),
             onErrorId: tvm.functionId(onNftDeployError),
             signBoxHandle: _keyHandle
-        }(_addrNFTRoot, 2 ton, true, false, payload);
+        }(_addrNFTRoot, 2 ton, true, 3, payload);
 
     }
     
@@ -205,15 +205,12 @@ contract NftDebot is Debot, Upgradable {
         address addrData,
         address addrRoot,
         address addrOwner,
-        address addrTrusted,
-        string rarityName,
-        string url
+        address addrTrusted
     ) public {
         Terminal.print(0, "📖 Data of deployed NFT: ");
         Terminal.print(0, format("🔷 NFT address: {}", addrData));
-        Terminal.print(0, format("🙋‍♂️ NFT owner: {}", addrOwner));
-        Terminal.print(0, format("📜 Rarity: {}\n", rarityName));
-        Terminal.print(0, format("🔗 Link: {}\n", url));
+        Terminal.print(0, format("📜 Rarity: {}\n", _nftParams.rarityName));
+        Terminal.print(0, format("🔗 Link: {}\n", _nftParams.url));
         restart();
     }
 
