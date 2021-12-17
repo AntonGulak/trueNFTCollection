@@ -73,12 +73,8 @@ interface IMultisig {
 }
 
 struct DirectSellDetails {
-    address addrRoot;
     address addrOwner;
     address addrNFT;
-    bool alreadyBought;
-    bool withdrawn;
-    bool isNftTradable;
     uint128 price;
     uint64 endUnixtime;
 }
@@ -103,17 +99,14 @@ contract DirectSellDeboot is Debot {
     uint128  _min_durations_days=1;
     uint128  _max_durations_days=30;
 
-    bytes _icon;
-
-    address _directSellRoot;
-
+    address _directSellRootAddr;
 
     address _addrNFT;
     DirectSellDetails _directSellDetails;
     NFTParams _nftParams;
     address _addrMultisig;
     uint128 _price;
-    int256 _duration;
+    int256 _durationInSec;
     address _directSellAddr;
 
     /// @notice Returns Metadata about DeBot.
@@ -121,7 +114,7 @@ contract DirectSellDeboot is Debot {
         string name, string version, string publisher, string caption, string author,
         address support, string hello, string language, string dabi, bytes icon
     ) {
-        name = "DirectSellNFT";
+        name = "Direct NFT Sales Debot";
         version = "0.1.0";
         publisher = "";
         caption = "";
@@ -141,7 +134,7 @@ contract DirectSellDeboot is Debot {
         require(msg.pubkey() == tvm.pubkey(), 100);
         tvm.accept();
 
-        _directSellRoot = addr;
+        _directSellRootAddr = addr;
     }
 
     function setDurationMinMaxMinutes(uint128  min_duration_minutes, uint128  max_duration_minutes) public {
@@ -214,16 +207,14 @@ contract DirectSellDeboot is Debot {
     function _restart() public {
         _addrNFT = address(0);
         _price = 0;
-        _duration = 0;
+        _durationInSec = 0;
         _directSellAddr = address(0);
 
         _nftParams.rarityName = "";
         _nftParams.url = "";
 
-        _directSellDetails.addrRoot = address(0);
+        _directSellDetails.addrOwner = address(0);
         _directSellDetails.addrNFT = address(0);
-        _directSellDetails.alreadyBought = false;
-        _directSellDetails.withdrawn = false;
         _directSellDetails.price = 0;
         _directSellDetails.endUnixtime = 0;
 
@@ -312,16 +303,18 @@ contract DirectSellDeboot is Debot {
     }
 
     function printNFTDetails() public {
-        string str = format("Rarity: {}\nMedia link: {}",
+        string str = format("NFT address: {}\nNFT owner: {}\nRarity: {}\nMedia link: {}",
+            _nftParams.addrData,
+            _nftParams.addrOwner,
             _nftParams.rarityName,
-           _nftParams.url);
+            _nftParams.url
+        );
 
         Terminal.print(0, str);
     }
 
     function CheckOwner() public {
-        if (_addrMultisig != _nftParams.addrOwner)
-        {
+        if (_addrMultisig != _nftParams.addrOwner) {
             Terminal.print(0, "You are not owner of NFT");
             getWalletData();
         }
@@ -414,9 +407,7 @@ contract DirectSellDeboot is Debot {
     // }
 
     function getPrice() public {
-
         AmountInput.get(tvm.functionId(setAmount), "Enter price.", 9, 5000000000, 500000000000000);
-
     }
 
     function setAmount(uint128 value) public {
@@ -445,7 +436,7 @@ contract DirectSellDeboot is Debot {
     }
 
     function setDurationInMinutes(uint128 value) public {
-        _duration = value*60;
+        _durationInSec = value*60;
         SellItem();
     }
 
@@ -466,7 +457,7 @@ contract DirectSellDeboot is Debot {
     }
 
     function setDurationInHours(uint128 value) public {
-        _duration = value*60*60;
+        _durationInSec = value*60*60;
         SellItem();
     }
 
@@ -481,13 +472,13 @@ contract DirectSellDeboot is Debot {
     }
 
     function setDurationInDays(uint128 value) public {
-        _duration = value*60*60*24;
+        _durationInSec = value*60*60*24;
         SellItem();
     }
 
     function SellItem() public
     {
-        uint128 marketRewards = 200;
+        uint128 marketRewards = 1;
         ConfirmInput.get(tvm.functionId(createDirectSell), format("Details.\nNFT address: {}\nOwner: {}\nRarity: {}\nMedia link: {}\nMarket reward: {}\nYour reward: {}\n\nPay 2 tokens for create deal.\nConfirm?",
         _nftParams.addrData,
         _nftParams.addrOwner,
@@ -506,7 +497,13 @@ contract DirectSellDeboot is Debot {
             return;
         }
 
-        TvmCell payload = tvm.encodeBody(IDirectSellRoot.deployDirectSell, _addrNFT);
+        TvmCell payload = tvm.encodeBody(
+            IDirectSellRoot.deployDirectSell, 
+            _addrMultisig, 
+            uint64(_durationInSec), 
+            _addrNFT, 
+            _price
+        );
         IMultisig(_addrMultisig).submitTransaction{
         abiVer: 2,
         extMsg: true,
@@ -516,7 +513,7 @@ contract DirectSellDeboot is Debot {
         expire: 0,
         callbackId: tvm.functionId(onDeploySuccess),
         onErrorId: tvm.functionId(onDeployError)
-        }(_directSellRoot, 2 ton, true, false, payload);
+        }(_directSellRootAddr, 2 ton, true, false, payload);
 
         Terminal.print(tvm.functionId(CheckThatDirectSellDeployed), "Message sended");
     }
@@ -537,7 +534,7 @@ contract DirectSellDeboot is Debot {
     function getDirectSellAddress(uint32 answerId) private  view {
         optional(uint256) none;
 
-        IDirectSellRoot(_directSellRoot).getDirectSellAddress{
+        IDirectSellRoot(_directSellRootAddr).getDirectSellAddress{
             abiVer: 2,
             extMsg: true,
             sign: false,
@@ -657,12 +654,8 @@ contract DirectSellDeboot is Debot {
         uint64 endUnixtime
     ) public
     {
-        _directSellDetails.addrRoot = addrRoot;
         _directSellDetails.addrOwner = addrOwner;
         _directSellDetails.addrNFT = addrNFT;
-        _directSellDetails.alreadyBought = alreadyBought;
-        _directSellDetails.withdrawn = withdrawn;
-        _directSellDetails.isNftTradable = isNftTradable;
         _directSellDetails.price = price;
         _directSellDetails.endUnixtime = endUnixtime;
     }
