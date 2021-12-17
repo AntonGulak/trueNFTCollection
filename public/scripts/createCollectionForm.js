@@ -426,6 +426,7 @@ function download(fileUrl, fileName) {
 
 $("#image-input").on("change", async (e) => {
     if (e.target.files) {
+
         const fileObject = e.target.files[0]
         const reader = new FileReader()
         reader.onload = async () => {
@@ -446,8 +447,8 @@ $("#image-input").on("change", async (e) => {
         }
 
         reader.readAsDataURL(fileObject)
-
         document.getElementById("upload-text").style = "display: block;"
+
     }
 })
 
