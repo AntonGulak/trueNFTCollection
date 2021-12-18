@@ -19,7 +19,6 @@ export class TokenInfoGetter {
 
     async getTokenInfo(tokenAddress: string, dirName: string) {
         const tokenDecodedInfo = await this.getTokenDecodedInfo(tokenAddress, dirName);
-
         return tokenDecodedInfo;
     }
 
@@ -52,11 +51,10 @@ export class TokenInfoGetter {
         );
 
         const tokenInfo = await dataAcc.runLocal('getInfo', {});
-        const rarity = await dataAcc.runLocal('getRarity', {});
-
+        const paramsInfo = await dataAcc.runLocal('getParamsInfo', {});
         return {
             addresses: tokenInfo.decoded?.output,
-            rarity: rarity.decoded?.output.rarityName
+            params: paramsInfo.decoded?.output
         };
     }
 }
