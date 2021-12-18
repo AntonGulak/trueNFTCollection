@@ -60,16 +60,6 @@ interface IMultisig {
         TvmCell payload
     ) external;
 
-    function submitTransaction(
-        address dest,
-        uint128 value,
-        bool bounce,
-        bool allBalance,
-        TvmCell payload)
-    external returns (
-        uint64 transId
-    );
-
 }
 
 struct DirectSellDetails {
@@ -100,6 +90,7 @@ contract DirectSellDeboot is Debot {
     uint128  _max_durations_days=30;
 
     address _directSellRootAddr;
+    uint32 _keyHandle;
 
     address _addrNFT;
     DirectSellDetails _directSellDetails;
@@ -130,11 +121,9 @@ contract DirectSellDeboot is Debot {
         return [ Terminal.ID, Sdk.ID, AddressInput.ID, Menu.ID, AmountInput.ID, ConfirmInput.ID];
     }
 
-    function setSellRootContractAddr(address addr) public {
-        require(msg.pubkey() == tvm.pubkey(), 100);
-        tvm.accept();
-
-        _directSellRootAddr = addr;
+    function setSellRootContractAddr(address value) public {
+        _directSellRootAddr = value;
+        printNftInfo();
     }
 
     function setDurationMinMaxMinutes(uint128  min_duration_minutes, uint128  max_duration_minutes) public {
@@ -222,17 +211,20 @@ contract DirectSellDeboot is Debot {
     }
 
     function _getNftContractDetail(uint32 answerId) private view {
-        optional(uint256) none;
         IData(_addrNFT).getInfo{
             abiVer: 2,
             extMsg: true,
-            sign: false,
-            pubkey: none,
+            callbackId: answerId,
+            onErrorId: tvm.functionId(onError),
             time: uint64(now),
             expire: 0,
-            callbackId: answerId,
-            onErrorId: 0
+            sign: false
         }();
+    }
+
+    function onError(uint32 sdkError, uint32 exitCode) public {
+        Terminal.print(0, format("🔴 Sdk error {}. Exit code {}.", sdkError, exitCode));
+        _restart();
     }
 
     function setNftItemDetails(    
@@ -244,30 +236,42 @@ contract DirectSellDeboot is Debot {
         string url
     ) public 
     {
-        _nftParams = NFTParams(
-            addrData,
-            addrRoot,
-            addrOwner,
-            addrTrusted,
-            rarityName,
-            url
-        );
+        _nftParams.addrData = addrData;
+        _nftParams.addrRoot = addrRoot;
+        _nftParams.addrOwner = addrOwner;
+        _nftParams.addrTrusted = addrTrusted;
+        _nftParams.rarityName = rarityName;
+        _nftParams.url = url;
 
         getWalletData();
     }
 
 
-    function getWalletData() public 
-    {
+    function getWalletData() public {
         _addrMultisig = address(0);
-        AddressInput.get(tvm.functionId(_getWalletAddress), "Enter your wallet address");
+        AddressInput.get(tvm.functionId(_getWalletAddress), "📝 Enter Multi-Signature Wallet address: ");
     }
-
 
     function _getWalletAddress(address value) public  {
         Sdk.getAccountType(tvm.functionId(checkWalletAccountStatus), value);
         _addrMultisig = value;
 	}
+
+    function getWalletKeys() public {
+        uint[] none;
+        SigningBoxInput.get(tvm.functionId(setKeyHandle), "🔑 Enter keys to sign all operations.", none);
+    }
+
+    function setKeyHandle(uint32 handle) public {
+        tvm.accept();
+        _keyHandle = handle;
+        getSellRootContractAddr();
+    }
+
+    function getSellRootContractAddr() public {
+        _directSellRootAddr = address(0);
+        AddressInput.get(tvm.functionId(setSellRootContractAddr), "📝 Enter Direct Sell Root address: ");
+    }
 
     function checkWalletAccountStatus(int8 acc_type) public {
         if (!_checkAccountStatus(acc_type, "Wallet")) {
@@ -294,7 +298,7 @@ contract DirectSellDeboot is Debot {
             getWalletData();
             return;
         }
-        printNftInfo();
+        getWalletKeys();
     }
 
     function printNftInfo() public {
@@ -504,26 +508,25 @@ contract DirectSellDeboot is Debot {
             _addrNFT, 
             _price
         );
-        IMultisig(_addrMultisig).submitTransaction{
-        abiVer: 2,
-        extMsg: true,
-        sign: true,
-        pubkey: pubkey,
-        time: uint64(now),
-        expire: 0,
-        callbackId: tvm.functionId(onDeploySuccess),
-        onErrorId: tvm.functionId(onDeployError)
-        }(_directSellRootAddr, 2 ton, true, false, payload);
-
-        Terminal.print(tvm.functionId(CheckThatDirectSellDeployed), "Message sended");
+        IMultisig(_addrMultisig).sendTransaction {
+            abiVer: 2,
+            extMsg: true,
+            sign: true,
+            pubkey: pubkey,
+            time: uint64(now),
+            expire: 0,
+            callbackId: tvm.functionId(onDeploySuccess),
+            onErrorId: tvm.functionId(onDeployError),
+            signBoxHandle: _keyHandle
+        }(_directSellRootAddr, 2 ton, true, 3, payload);
     }
 
     function onDeploySuccess(uint64 transId) public {
         transId = transId;
         string str = format("Created transaction id {}",
             transId);
-
         Terminal.print(0, str);
+        getDirectSellAddress(tvm.functionId(setDirectSellAddress));
     }
 
     function onDeployError(uint32 sdkError, uint32 exitCode) public {
@@ -537,19 +540,18 @@ contract DirectSellDeboot is Debot {
         IDirectSellRoot(_directSellRootAddr).getDirectSellAddress{
             abiVer: 2,
             extMsg: true,
-            sign: false,
-            pubkey: none,
+            callbackId: answerId,
+            onErrorId: tvm.functionId(onError),
             time: uint64(now),
             expire: 0,
-            callbackId: answerId,
-            onErrorId: 0
+            sign: false
         }(_addrMultisig, _addrNFT);
     }
 
 
     function setDirectSellAddress(address addr) public {
         _directSellAddr = addr;
-        CheckThatDirectSellDeployed();
+        Terminal.print(tvm.functionId(CheckThatDirectSellDeployed), format("Direct sell address: {}", _directSellAddr));
     }
 
     function CheckThatDirectSellDeployed() public
@@ -634,12 +636,11 @@ contract DirectSellDeboot is Debot {
         IDirectSell(_directSellAddr).getInfo{
             abiVer: 2,
             extMsg: true,
-            sign: false,
-            pubkey: none,
+            callbackId: answerId,
+            onErrorId: tvm.functionId(onError),
             time: uint64(now),
             expire: 0,
-            callbackId: answerId,
-            onErrorId: 0
+            sign: false
         }();
     } 
 

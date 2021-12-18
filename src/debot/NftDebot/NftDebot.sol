@@ -4,19 +4,19 @@ pragma AbiHeader expire;
 pragma AbiHeader time;
 pragma AbiHeader pubkey;
 
-import "./vendoring/Debot.sol";
-import "./vendoring/Terminal.sol";
-import "./vendoring/SigningBoxInput.sol";
-import "./vendoring/Menu.sol";
-import "./vendoring/AmountInput.sol";
-import "./vendoring/AddressInput.sol";
-import "./vendoring/ConfirmInput.sol";
-import "./vendoring/Upgradable.sol";
-import "./vendoring/Sdk.sol";
+import "../vendoring/Debot.sol";
+import "../vendoring/Terminal.sol";
+import "../vendoring/SigningBoxInput.sol";
+import "../vendoring/Menu.sol";
+import "../vendoring/AmountInput.sol";
+import "../vendoring/AddressInput.sol";
+import "../vendoring/ConfirmInput.sol";
+import "../vendoring/Upgradable.sol";
+import "../vendoring/Sdk.sol";
 
-import "NftRoot.sol";
-import "Data.sol";
-import './interfaces/IData.sol';
+import "../../contracts/NftRoot.sol";
+import "../../contracts/Data.sol";
+import '../../contracts/interfaces/IData.sol';
 
 interface IMultisig {
 
