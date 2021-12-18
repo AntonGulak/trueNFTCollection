@@ -4,7 +4,7 @@ import { TonClient, signerKeys, ResultOfDecodeTvc } from '@tonclient/core';
 import { libNode } from '@tonclient/lib-node';
 import fs from 'fs';
 import path from 'path';
-import { networks } from '../config/networks';
+import { settings } from '../config/settings';
 
 TonClient.useBinaryLibrary(libNode);
 
@@ -16,7 +16,7 @@ export class DeployContractService {
 
         this.client = new TonClient({
             network: {
-                endpoints: [networks.LOCALHOST]
+                endpoints: [settings.NETWORK]
             }
         });
 

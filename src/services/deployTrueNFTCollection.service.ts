@@ -3,6 +3,8 @@ import { DeployContractService } from './deployContract.service';
 import { walletSettings } from '../config/walletKey';
 import { signerKeys } from '@tonclient/core';
 import { RarityType } from '../models/rarity-model';
+import { settings } from '../config/settings';
+
 
 export class DeployTrueNFTContractsCollection {
 
@@ -86,10 +88,10 @@ export class DeployTrueNFTContractsCollection {
         };
 
         const client = nftRootAccount.client;
-        const signer = signerKeys(walletSettings.KEYS); 
+        const signer = signerKeys(settings.KEYS); 
 
         const localGiverAccount = new Account(localGiverContract, {
-            address: walletSettings.ADDRESS, 
+            address: settings.WALLETADDRESS, 
             signer,
             client });
  

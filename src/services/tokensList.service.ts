@@ -1,9 +1,9 @@
 import { TonClient } from "@tonclient/core";
 import { globals } from "../config/globals";
 import { Account } from '@tonclient/appkit';
-import { networks } from '../config/networks';
+import { settings } from '../config/settings';
 import fs from 'fs';
-import path from "path/posix";
+import path from "path";
 
 export class GetTokensList {
 
@@ -12,7 +12,7 @@ export class GetTokensList {
     constructor() {
         this.client = new TonClient({
             network: {
-                server_address: networks.LOCALHOST
+                server_address: settings.NETWORK
             }
         });
     }
