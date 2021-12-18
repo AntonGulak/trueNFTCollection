@@ -2,7 +2,7 @@ import { ResultOfDecodeAccountData, TonClient } from "@tonclient/core";
 import { networks } from '../config/networks';
 import fs from "fs";
 import { globals } from '../config/globals';
-import path from "path/posix";
+import path from "path";
 import { Account } from "@tonclient/appkit";
 
 export class TokenInfoGetter {

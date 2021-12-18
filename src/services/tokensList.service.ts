@@ -3,7 +3,7 @@ import { globals } from "../config/globals";
 import { Account } from '@tonclient/appkit';
 import { networks } from '../config/networks';
 import fs from 'fs';
-import path from "path/posix";
+import path from "path";
 
 export class GetTokensList {
 
