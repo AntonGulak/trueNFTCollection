@@ -3,6 +3,8 @@ import { DeployContractService } from './deployContract.service';
 import { walletSettings } from '../config/walletKey';
 import { signerKeys } from '@tonclient/core';
 import { RarityType } from '../models/rarity-model';
+import fs from "fs";
+import { globals } from '../config/globals';
 
 export class DeployTrueNFTContractsCollection {
 
@@ -80,16 +82,17 @@ export class DeployTrueNFTContractsCollection {
         let nftRootAddress = await nftRootAccount.getAddress();
         let indexBasisCode = await this.deployContractService.getContractCode(indexBasisAccount).then(code => {return code.code});
         
-        const localGiverContract = {
+        const giverContract = {
             abi: await JSON.parse(walletSettings.ABI),
             tvc: walletSettings.TVC,
         };
 
         const client = nftRootAccount.client;
-        const signer = signerKeys(walletSettings.KEYS); 
+        let settings = JSON.parse(fs.readFileSync(globals.SETTINGS_PATH).toString());
+        const signer = signerKeys(settings.KEYS); 
 
-        const localGiverAccount = new Account(localGiverContract, {
-            address: walletSettings.ADDRESS, 
+        const giverAccount = new Account(giverContract, {
+            address: settings.WALLETADDRESS, 
             signer,
             client });
  
@@ -106,7 +109,7 @@ export class DeployTrueNFTContractsCollection {
                 }
             })).body;
 
-            await localGiverAccount.run("sendTransaction", {
+            await giverAccount.run("sendTransaction", {
                 dest: nftRootAddress,
                 value: 600_000_000,
                 flags: 3,

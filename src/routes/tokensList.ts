@@ -18,9 +18,7 @@ router.post('/', async function (req, res) {
     const rootAddress = req.body.address
     let dirName = rootAddress.split(":");
     const tokensListGetter = new GetTokensList();
-
     const tokensList = await tokensListGetter.getTokensList(rootAddress, dirName[1]);
-
     const infoGetter = new TokenInfoGetter()
     const tokenInfoList = new Array<tokenInfoType>()
     for (let token of tokensList) {
