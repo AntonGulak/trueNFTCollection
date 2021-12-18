@@ -7,7 +7,9 @@ router.get("/", function(req, res, next) {
     res.render("createCollectionForm")
 })
 
-router.post("/", function(req, res, next) {
+router.post("/", async function(req, res, next) {
+    const {settings} = await require('../config/settings')
+    console.log(settings);
     NFTCollectionJSON.deploy(req.body);
 })
   

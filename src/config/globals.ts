@@ -14,4 +14,5 @@ export const globals = {
     SETTINGS_PATH: path.join(APP_ROOT, 'src', 'config'),
     TEMP_PATH:  path.join(APP_ROOT, 'temp'),
     CONTRACTS_PATH: path.join(APP_ROOT, 'src', 'contracts'),
+    IMAGE_PATH:  path.join(APP_ROOT, 'image_generator')
 };
