@@ -1,5 +1,4 @@
-import { ResultOfDecodeAccountData, TonClient } from "@tonclient/core";
-import { networks } from '../config/networks';
+import { TonClient } from "@tonclient/core";
 import fs from "fs";
 import { globals } from '../config/globals';
 import path from "path";
@@ -10,9 +9,10 @@ export class TokenInfoGetter {
     private readonly client: TonClient;
 
     constructor() {
+        let settings = JSON.parse(fs.readFileSync(globals.SETTINGS_PATH).toString());
         this.client = new TonClient({
             network: {
-                server_address: networks.LOCALHOST
+                server_address: settings.NETWORK
             }
         });
     }
