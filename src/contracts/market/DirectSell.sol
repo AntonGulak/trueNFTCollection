@@ -51,8 +51,7 @@ contract DirectSell {
     }
 
     function buy() 
-        public 
-        onlyOwner
+        public
         nftTransferSolvency
     {
         require(_canceled == false, DirectSellErr.TOKEN_IS_WITHDRAWN, "Token is withdrawn");
