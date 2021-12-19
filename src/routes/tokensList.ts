@@ -31,7 +31,9 @@ router.post('/', async function (req, res) {
             const res = dataAbi.functions.find(i => i.name == "getParamsInfo");
 
             const convert = (from, to) => (data) => Buffer.from(data, from).toString(to);
-            const hexToUtf8= convert("hex", "utf8");
+            const hexToUtf8 = convert("hex", "utf8");
+            
+            const params = new Array<any>();
             for (let param of res.outputs)
             {
                 let paramData = info.params[param.name];
@@ -39,13 +41,21 @@ router.post('/', async function (req, res) {
                 {
                    paramData = hexToUtf8(info.params[param.name]);
                 }
+                
+                const name = param.name
+                const paramJson = {
+                    name: paramData
+                }
+
+                params.push(paramJson)
                 console.log(param.name + ":   " + paramData);
             }
 
             const tokenInfo = {
                 tokenAddress: token,
                 ownerAddress: info.addresses.addrOwner,
-                rarityType: ""//_rarityType
+                rarityType: "", //_rarityType
+                params: params
             }
             tokenInfoList.push(tokenInfo)
         } catch (error) {

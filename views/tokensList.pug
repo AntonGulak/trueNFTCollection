@@ -7,4 +7,6 @@ block content
             div.token-container
                 p Token address: #{token.tokenAddress}
                 p Owner address: #{token.ownerAddress}
-                p rarity: #{token.rarityType}
+                each val, key in token.params
+                    p #{key}: #{val}
+                
