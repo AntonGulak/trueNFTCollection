@@ -4,19 +4,19 @@ pragma AbiHeader expire;
 pragma AbiHeader time;
 pragma AbiHeader pubkey;
 
-import "./vendoring/Debot.sol";
-import "./vendoring/Terminal.sol";
-import "./vendoring/SigningBoxInput.sol";
-import "./vendoring/Menu.sol";
-import "./vendoring/AmountInput.sol";
-import "./vendoring/AddressInput.sol";
-import "./vendoring/ConfirmInput.sol";
-import "./vendoring/Upgradable.sol";
-import "./vendoring/Sdk.sol";
+import "../vendoring/Debot.sol";
+import "../vendoring/Terminal.sol";
+import "../vendoring/SigningBoxInput.sol";
+import "../vendoring/Menu.sol";
+import "../vendoring/AmountInput.sol";
+import "../vendoring/AddressInput.sol";
+import "../vendoring/ConfirmInput.sol";
+import "../vendoring/Upgradable.sol";
+import "../vendoring/Sdk.sol";
 
-import "NftRoot.sol";
-import "Data.sol";
-import './interfaces/IData.sol';
+import "../../contracts/NftRoot.sol";
+import "../../contracts/Data.sol";
+import '../../contracts/interfaces/IData.sol';
 
 interface IMultisig {
 
@@ -27,6 +27,7 @@ interface IMultisig {
         uint8 flags,
         TvmCell payload
     ) external;
+
 }
 
 struct NftParams {
@@ -43,9 +44,6 @@ contract NftDebot is Debot, Upgradable {
     address _addrMultisig;
 
     uint32 _keyHandle;
-
-    string _rarityName;
-    uint _rarityAmount;
 
     NftParams _nftParams;
 
@@ -205,12 +203,15 @@ contract NftDebot is Debot, Upgradable {
         address addrData,
         address addrRoot,
         address addrOwner,
-        address addrTrusted
+        address addrTrusted,
+        string rarityName,
+        string url
     ) public {
         Terminal.print(0, "📖 Data of deployed NFT: ");
         Terminal.print(0, format("🔷 NFT address: {}", addrData));
-        Terminal.print(0, format("📜 Rarity: {}\n", _nftParams.rarityName));
-        Terminal.print(0, format("🔗 Link: {}\n", _nftParams.url));
+        Terminal.print(0, format("🙋‍♂️ NFT owner: {}", addrOwner));
+        Terminal.print(0, format("📜 Rarity: {}\n", rarityName));
+        Terminal.print(0, format("🔗 Link: {}\n", url));
         restart();
     }
 
