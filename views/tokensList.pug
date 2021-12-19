@@ -7,6 +7,6 @@ block content
             div.token-container
                 p Token address: #{token.tokenAddress}
                 p Owner address: #{token.ownerAddress}
-                each val, key in token.params
-                    p #{key}: #{val}
+                each param in token.params
+                    p #{param.name}: #{param.data}
                 

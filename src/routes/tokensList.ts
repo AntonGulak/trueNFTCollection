@@ -44,7 +44,8 @@ router.post('/', async function (req, res) {
                 
                 const name = param.name
                 const paramJson = {
-                    name: paramData
+                    name: name,
+                    data: paramData
                 }
 
                 params.push(paramJson)
