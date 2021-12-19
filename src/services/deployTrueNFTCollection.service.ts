@@ -1,10 +1,6 @@
 import { Account } from '@tonclient/appkit';
 import { DeployContractService } from './deployContract.service';
-import { walletSettings } from '../config/walletKey';
-import { signerKeys } from '@tonclient/core';
 import { RarityType } from '../models/rarity-model';
-import fs from "fs";
-import { globals } from '../config/globals';
 
 export class DeployTrueNFTContractsCollection {
 
@@ -63,7 +59,7 @@ export class DeployTrueNFTContractsCollection {
                     tokensLimit: _tokensLimit,
                     raritiesList: _raritiesList 
                 },
-                useGiver: true,
+                valueTON: 5000000000
             });
             address = await nftRootAccount.getAddress();
             console.log("NftRoot contract was deployed at address: " + address);
@@ -82,19 +78,12 @@ export class DeployTrueNFTContractsCollection {
         let nftRootAddress = await nftRootAccount.getAddress();
         let indexBasisCode = await this.deployContractService.getContractCode(indexBasisAccount).then(code => {return code.code});
         
-        const giverContract = {
-            abi: await JSON.parse(walletSettings.ABI),
-            tvc: walletSettings.TVC,
-        };
+ 
 
         const client = nftRootAccount.client;
-        let settings = JSON.parse(fs.readFileSync(globals.SETTINGS_PATH).toString());
-        const signer = signerKeys(settings.KEYS); 
+        const walletAcc = await  this.deployContractService.getCurrentWallet();
+       
 
-        const giverAccount = new Account(giverContract, {
-            address: settings.WALLETADDRESS, 
-            signer,
-            client });
  
         try {
             const payload = (await client.abi.encode_message_body({
@@ -109,7 +98,7 @@ export class DeployTrueNFTContractsCollection {
                 }
             })).body;
 
-            await giverAccount.run("sendTransaction", {
+            await walletAcc.run("sendTransaction", {
                 dest: nftRootAddress,
                 value: 600_000_000,
                 flags: 3,
