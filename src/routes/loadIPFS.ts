@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
     res.render("loadIPFS",{arr_for_name_img:arr_img})
 })
 
-router.post("/", async (req, res) => {
+router.post("/fromFolder", async (req, res) => {
     console.log(req.body.name)
     var data = fs.readFileSync(`public/image/${req.body.name}`);
     console.log(data.toString('base64'));
@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
     res.json({ link })
 })
 
-router.post("/manual", async (req, res) => {
+router.post("/", async (req, res) => {
     const uploadService = new UploadFileToIPFSService()
     const link = await uploadService.uploadContent(req.body.base64)
     res.json({ link })

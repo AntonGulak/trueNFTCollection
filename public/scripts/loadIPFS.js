@@ -14,7 +14,7 @@ async function onUploadIpfs(e) {
     var name_file =e.src.split("/").pop()
     
     const link = await fetch(
-            "/loadIPFS",
+            "/loadIPFS/fromFolder",
             {
                 method: "POST",
                 body: JSON.stringify({"name":name_file}),
@@ -44,7 +44,7 @@ $("#file-input").on("change", async (e) => {
     reader.onload = async () => {
         const base64 = reader.result
         const link = await fetch(
-            "/loadIPFS/manual",
+            "/loadIPFS",
             {
                 method: "POST",
                 body: JSON.stringify({ "base64": base64 }),

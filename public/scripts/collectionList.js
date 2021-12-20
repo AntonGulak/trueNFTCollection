@@ -35,7 +35,7 @@
             tokenName.innerText = `Token name: ${token.rarityName}`
     
             const tokenAmount = document.createElement("p")
-            tokenAmount.innerText = `Token name: ${token.amount}`
+            tokenAmount.innerText = `Token limit: ${token.amount}`
 
             tokenDiv.append(tokenName, tokenAmount)
             collectionDiv.append(tokenDiv)
