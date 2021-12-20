@@ -53,7 +53,7 @@ Also our team developed an NFT DeBot, which is the tool for minting NFTs.
  
 ![image](https://user-images.githubusercontent.com/55970327/146723175-a40114b5-ed5d-440e-ba80-8a872828004f.png)
  
- <li> Then you can upload root icon to ipfs and save url onchain. For more detailed information, see the section ""  </li>
+ <li> Then you can upload root icon to ipfs and save url onchain. For more detailed information, see the section "Load to IPFS" </li>
  
 ![image](https://user-images.githubusercontent.com/55970327/146723807-37498ea8-2eb0-4506-9511-d523fcaf7ff0.png)
 
@@ -95,7 +95,6 @@ Also our team developed an NFT DeBot, which is the tool for minting NFTs.
   <p> <li> Then you should to type the rarity of token and all additional parameters  </p>
   
 ![image](https://user-images.githubusercontent.com/55970327/146753180-b12697d7-d9b1-4771-a41e-22db50545c99.png)
-
   <p> <li> Finally, you are receiving nft token address and information about it </p>
   
   ![image](https://user-images.githubusercontent.com/55970327/146753952-7e6dfaf4-7631-4baa-a2fe-a33a3f9a58fd.png)
@@ -108,5 +107,14 @@ Also our team developed an NFT DeBot, which is the tool for minting NFTs.
 
  </ul></li>
  
-
+ ## Upload to IPFS
  
+  <li> You can use other services, however we have intergration with <i> ipfs.infura </i>  </li> <BR>
+ 
+ ![image](https://user-images.githubusercontent.com/55970327/146755436-0429c0f5-d3ea-4b11-9783-295c4e2fe8e9.png)
+
+ <li> There are two options to choose image to upload </i>  
+  <ul>
+    <li> List of picture from folder public\image (It is made for large number of image, which are made by NFT Art Generator) </li> 
+    <li> You choose picture and click on it and get url </li> 
+    </ul></li> 
