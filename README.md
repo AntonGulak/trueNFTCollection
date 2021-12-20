@@ -1,6 +1,6 @@
 
 # NFT collection distributor
-The purpose of our project is to simplify user interact with creating NFT collections. User can create collection with various parameters including image of NFT. 
+The purpose of our project is to simplify user interact with creating NFT collections. User can create collection with various parameters including image. 
 
 Also our team developed an NFT DeBot, which is the tool for minting NFTs.
 
