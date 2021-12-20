@@ -5,7 +5,7 @@ The purpose of our project is to simplify user interact with creating NFT collec
 Also our team developed an NFT DeBot, which is the tool for minting NFTs.
 
 
-# Why we use True NFT standart?
+# Why we used True NFT standart?
 
 ![](header.png)
 
@@ -95,6 +95,15 @@ Also our team developed an NFT DeBot, which is the tool for minting NFTs.
   <p> <li> Then you should to type the rarity of token and all additional parameters  </p>
   
 ![image](https://user-images.githubusercontent.com/55970327/146753180-b12697d7-d9b1-4771-a41e-22db50545c99.png)
+
+  <p> <li> Finally, you are getting nft token address and information about it </p>
+  
+  ![image](https://user-images.githubusercontent.com/55970327/146753952-7e6dfaf4-7631-4baa-a2fe-a33a3f9a58fd.png)
+  
+   <p> <li> Also you can get all token, if you open the section "get a list of tokens" on the site </p>
+  
+  ![image](https://user-images.githubusercontent.com/55970327/146754306-4456d032-b23a-466b-9609-46a2c80da712.png)
+
 
  </ul></li>
  
