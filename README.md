@@ -28,11 +28,16 @@ One to two paragraph statement about your product and what it does.
 </ul>
 
 ## Usage site example
+<li> Enter the collection name</li> <BR>
 
- ![image](https://user-images.githubusercontent.com/55970327/145376872-44c54c07-d11d-4abc-80b5-73c9595e3073.png)
-![image](https://user-images.githubusercontent.com/55970327/145376890-1f53fbad-dbfe-4e30-9772-5cf636a86759.png)
-![image](https://user-images.githubusercontent.com/55970327/145376913-88771b03-8447-4f79-8e35-7f72966035cf.png)
-![image](https://user-images.githubusercontent.com/55970327/145376929-316e1d86-f49c-48fe-a339-51e395be3ef7.png)
-![image](https://user-images.githubusercontent.com/55970327/145377291-7c6064c5-11f4-4c89-8b9c-cbe4169c553d.png)
-![image](https://user-images.githubusercontent.com/55970327/145377410-9dfd82d1-8ec0-4249-98b6-3e1229711afa.png)
-![image](https://user-images.githubusercontent.com/55970327/145377446-603806f0-c72a-4c3e-aadc-dea055cb66b2.png)
+![_ZDRkxWQUSk](https://user-images.githubusercontent.com/55970327/146720830-5f354f68-5709-43a2-b1b2-24edd6550b8d.jpg)
+ 
+<li>Click "add token" and enter the type of token and their limit. (You must to create at leaste 1 type of token) </li> 
+ 
+![image](https://user-images.githubusercontent.com/55970327/146721047-04b40f4b-2ad0-4bae-8b21-ab23eda50a60.png)
+ 
+ <li>You can add additional parametres. You should press the button "Add parametr" and choose variable type (string, number). Also you can to choose the range of their values and the filling requirements.   </li> 
+ 
+![image](https://user-images.githubusercontent.com/55970327/146723175-a40114b5-ed5d-440e-ba80-8a872828004f.png)
+
+ 
