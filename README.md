@@ -118,7 +118,8 @@ Also our team developed an NFT DeBot, which is the tool for minting NFTs.
     <li> List of picture from folder public\image (It is made for large number of image, which are made by NFT Art Generator) </li> 
     <li> You choose picture and click on it and get url </li>  <BR>
   
-   ![image](https://user-images.githubusercontent.com/55970327/146762018-af05ad79-801e-4279-ad44-5b7917ed391e.png)
+   ![image](https://user-images.githubusercontent.com/55970327/146763467-b74077c4-218f-4d99-b26d-178873532228.png)
+
     </ul></li> 
    
    <li> Or upload a single picture and get url </li>  
