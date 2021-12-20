@@ -39,8 +39,9 @@ One to two paragraph statement about your product and what it does.
  ![image](https://user-images.githubusercontent.com/55970327/146725391-9c21ca37-6691-484d-9015-e47884395c85.png)
 
  
-<li> Enter the collection name</li> <BR>
-
+<li> To create a new collection, you should go to section "Create Collection" and enter the collection name</li>
+<li> Firstly, you should to enter the collection name </li> <BR>
+ 
 ![_ZDRkxWQUSk](https://user-images.githubusercontent.com/55970327/146720830-5f354f68-5709-43a2-b1b2-24edd6550b8d.jpg)
  
 <li>Click "add token" and enter the type of token and their limit. (You must to create at leaste 1 type of token) </li> 
