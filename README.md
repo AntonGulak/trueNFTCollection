@@ -6,6 +6,13 @@ Also our team developed an NFT DeBot, which is the tool for minting NFTs.
 
 
 # Why we used True NFT standart?
+1) True NFT allows the user to interact with tokens in decentralised browsers and applications using a single blockchain address, or to send NFT with only the recipient's address.
+
+2) When using True NFT, token owner information is included in the original token data, making it searchable. The data is placed in a separate non-removable contract, thus forming a kind of search index that is recreated when the owner changes.
+
+3) All NFT data (including content) is stored in the Free TON blockchain, making it possible to search collection and token records and actions on them by sending standardised queries from smart contracts.
+ 
+4) The use of True NFT ensures that the initial methods work, allowing you to start developing exactly the unique functionality right away. In addition, due to the fact that part of the code is universal, it was possible to learn the logic of the written contracts.
 
 ![](header.png)
 # Contracts changes
