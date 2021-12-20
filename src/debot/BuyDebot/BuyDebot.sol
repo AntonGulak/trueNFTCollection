@@ -99,7 +99,7 @@ contract BuyDebot is Debot, Upgradable{
             abiVer: 2,
             extMsg: true,
             callbackId:tvm.functionId(checkResult),
-            onErrorId: 0,
+            onErrorId: tvm.functionId(onBuyError),
             time: 0,
             expire: 0,
             sign: false
