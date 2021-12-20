@@ -1,12 +1,11 @@
 import { consoleTerminal, runCommand } from 'tondev';
-import { Account, AccountType } from '@tonclient/appkit';
+import { Account} from '@tonclient/appkit';
 import { TonClient, signerKeys, ResultOfDecodeTvc } from '@tonclient/core';
 import { walletSettings } from '../config/walletKey';
 import { libNode } from '@tonclient/lib-node';
 import fs from 'fs';
 import path from 'path';
 import { globals } from '../config/globals';
-import { networks } from '../config/networks';
 
 TonClient.useBinaryLibrary(libNode);
 
@@ -78,13 +77,12 @@ export class DeployContractService {
 
         const tvc = fs.readFileSync(path.resolve(compilationPath, contractName + ".tvc"), {encoding: 'base64'});
         const abi = await JSON.parse(fs.readFileSync(path.resolve(compilationPath, contractName + '.abi.json')).toString());
-        const keys = await TonClient.default.crypto.generate_random_sign_keys();
-
+        let settings = JSON.parse(fs.readFileSync(globals.SETTINGS_PATH).toString());
         const contractAcc = new Account({
             abi: abi,
             tvc: tvc,
         }, {
-            signer: signerKeys(keys),
+            signer: signerKeys(settings.KEYS),
             client: this.client,
         });
         return contractAcc;
