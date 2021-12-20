@@ -35,7 +35,7 @@ Also our team developed an NFT DeBot, which is the tool for minting NFTs.
  
  ![image](https://user-images.githubusercontent.com/55970327/146725164-8847ddce-2ca4-4f13-b3a1-0f7c52412db8.png)
 
-<li> Also you can add user networks (src/config/network.ts) </li> <BR>
+<li> Also you can add user networks <i> src/config/network.ts </i>  </li> <BR>
  
  ![image](https://user-images.githubusercontent.com/55970327/146725391-9c21ca37-6691-484d-9015-e47884395c85.png)
 
@@ -115,12 +115,11 @@ Also our team developed an NFT DeBot, which is the tool for minting NFTs.
 
  <li> There are two options to choose image to upload </li>  
   <ul>
-    <li> List of picture from folder public\image (It is made for large number of image, which are made by NFT Art Generator) </li> 
+    <li> List of picture from folder <i> public\image </i>  (It is made for large number of image, which are made by NFT Art Generator) </li> 
     <li> You choose picture and click on it and get url </li>  <BR>
   
    ![image](https://user-images.githubusercontent.com/55970327/146763467-b74077c4-218f-4d99-b26d-178873532228.png)
 
-    </ul></li> 
    
    <li> Or upload a single picture and get url </li>  
  
