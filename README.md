@@ -113,16 +113,17 @@ Also our team developed an NFT DeBot, which is the tool for minting NFTs.
  
  ![image](https://user-images.githubusercontent.com/55970327/146755436-0429c0f5-d3ea-4b11-9783-295c4e2fe8e9.png)
 
- <li> There are two options to choose image to upload </i>  
+ <li> There are two options to choose image to upload </li>  
   <ul>
     <li> List of picture from folder public\image (It is made for large number of image, which are made by NFT Art Generator) </li> 
-    <li> You choose picture and click on it and get url </li> 
+    <li> You choose picture and click on it and get url </li>  <BR>
   
    ![image](https://user-images.githubusercontent.com/55970327/146762018-af05ad79-801e-4279-ad44-5b7917ed391e.png)
+    </ul></li> 
    
-    <li> Or upload a single picture and get url </li> 
-   
+   <li> Or upload a single picture and get url </li>  
+ 
    ![image](https://user-images.githubusercontent.com/55970327/146762388-41a0fb46-2118-4138-9670-e0fbccf9e696.png)
 
 
-    </ul></li> 
+    
