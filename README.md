@@ -6,8 +6,52 @@ Also our team developed an NFT DeBot, which is the tool for minting NFTs.
 
 
 # Why we used True NFT standart?
+1) True NFT allows the user to interact with tokens in decentralised browsers and applications using a single blockchain address, or to send NFT with only the recipient's address.
+
+2) When using True NFT, token owner information is included in the original token data, making it searchable. The data is placed in a separate non-removable contract, thus forming a kind of search index that is recreated when the owner changes.
+
+3) All NFT data (including content) is stored in the Free TON blockchain, making it possible to search collection and token records and actions on them by sending standardised queries from smart contracts.
+ 
+4) The use of True NFT ensures that the initial methods work, allowing you to start developing exactly the unique functionality right away. In addition, due to the fact that part of the code is universal, it was possible to learn the logic of the written contracts.
 
 ![](header.png)
+# Contracts changes
+
+
+## Data contract
+Added:
+<ul dir="auto">
+<li>Image URL, token rarity and possibility of transferring rights parameters and methods that return these parameters </li>
+<li>Methods for changing the transferability of rights </li>
+<li>Ability to transfer token without sale </li>
+<li>Ability to transfer token management rights without transferring ownership and back </li>
+<li>Modifiers </li>
+</ul>
+
+## NftRoot contract
+Added:
+<ul dir="auto">
+<li>Rarity structure consisting of name and number of tokens</li>
+<li>List, consisting of elements of the rarity structure, and tokens limit parameter</li>
+<li>Checks for the correctness of the entered parameters</li>
+<li>Ability to add commission volume</li>
+<li>Ability to add and delete an admin</li>
+<li>Ability to cancel the commission for the admin</li>
+</ul>
+
+## DirectSellRoot contract 
+<ul dir="auto">
+<li>Created for deploy DirectSell contract and obtaining its address</li>
+</ul>
+
+## DirectSell contract
+Created: 
+<ul dir="auto">
+<li>Ability to put token for sale in constructor</li>
+<li>Ability to buy a token by any member of the network</li>
+<li>Ability to cancel the sale</li>
+</ul>
+
 
 # Video presentation  
 > (there are some different from current version)
