@@ -131,9 +131,10 @@ Created:
  
  <p> <li> In the beginning, the user should attach:   </p>
  <ul>
-<li> 1) the wallet from which transactions will be made, the address of NFTRoot, that contains a collection of rarities and sign all operations via private and public keys.  </li> 
- ![image](https://user-images.githubusercontent.com/55970327/146750484-f869cef7-0ee5-4ae5-ab01-5568b03dc651.png)
- 
+<li> 1) the wallet from which transactions will be made, the address of NFTRoot, that contains a collection of rarities and sign all operations via private and public keys.  </li>
+  
+![image](https://user-images.githubusercontent.com/55970327/146750484-f869cef7-0ee5-4ae5-ab01-5568b03dc651.png)
+  
   <p> <li> 2) Then you should to type the rarity of token and all additional parameters  </p>
   
 ![image](https://user-images.githubusercontent.com/55970327/146753180-b12697d7-d9b1-4771-a41e-22db50545c99.png)
