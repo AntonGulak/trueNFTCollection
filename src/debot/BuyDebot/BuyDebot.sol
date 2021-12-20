@@ -45,13 +45,13 @@ contract BuyDebot is Debot, Upgradable{
         string name, string version, string publisher, string key, string author,
         address support, string hello, string language, string dabi, bytes icon
     ) {
-        name = "Buy debot";
+        name = "🔷Buy debot";
         version = "0.0.1";
         publisher = "";
         key = "";
         author = "Jack Karver";
         support = address.makeAddrStd(0, 0x000000000000000000000000000000000000000000000000000000000000);
-        hello = "Hello, i am an Nft buy DeBot.";
+        hello = "🖖Hello, i am an Nft buy DeBot.";
         language = "en";
         dabi = m_debotAbi.get();
         icon = '';
@@ -67,7 +67,7 @@ contract BuyDebot is Debot, Upgradable{
     
     function mainMenu() public {
         if(_addrMultisig == address(0)) {
-            Terminal.print(0, 'Looks like you do not have attached Multi-Signature Wallet.');
+            Terminal.print(0, '💳Looks like you do not have attached Multi-Signature Wallet.');
             attachMultisig();
         } else {
             restart();
@@ -77,7 +77,7 @@ contract BuyDebot is Debot, Upgradable{
     function restart() public {
         if(_keyHandle == 0){
             uint[] none;
-            SigningBoxInput.get(tvm.functionId(setKeyHandle), "Enter keys to sign", none);
+            SigningBoxInput.get(tvm.functionId(setKeyHandle), "🔑Enter keys to sign", none);
             return;
         }
         menu();
@@ -85,12 +85,12 @@ contract BuyDebot is Debot, Upgradable{
 
     function menu() public{
         MenuItem[] _items;
-            _items.push(MenuItem("Buy Nft","",tvm.functionId(buyNft)));
+            _items.push(MenuItem("💲Buy Nft","",tvm.functionId(buyNft)));
         Menu.select("What we will do?","", _items);        
     }
 
     function buyNft() public{        
-        AddressInput.get(tvm.functionId(setDirectSellAddr), "Enter the address of the Direct sell contract with token you want to buy");
+        AddressInput.get(tvm.functionId(setDirectSellAddr), "📝Enter the address of the Direct sell contract with token you want to buy");
         buyNftS2();
     }
 
@@ -115,11 +115,11 @@ contract BuyDebot is Debot, Upgradable{
         uint128 price,
         uint64 endUnixtime) 
         public {
-        Terminal.print(0, format("Address Owner: {}", addrOwner));
-        Terminal.print(0, format("Address NFT: {}", addrNFT));
+        Terminal.print(0, format("🙋‍♂️Address Owner: {}", addrOwner));
+        Terminal.print(0, format("📝Address NFT: {}", addrNFT));
         if(alreadyBought == false && withdrawn == false && isNftTradable == true){
-            Terminal.print(0, format("Is tradable?: Yes"));
-            Terminal.print(0, format("Price: {}", price));
+            Terminal.print(0, format("💱Is tradable?: Yes"));
+            Terminal.print(0, format("🏷️Price: {}", price));
             uint64 remains = endUnixtime - now;
             uint64 day = remains/(3600*24);
             remains = remains%(3600*24);
@@ -127,43 +127,46 @@ contract BuyDebot is Debot, Upgradable{
             remains = remains%3600;
             uint mins = remains/60;
             remains = remains%60;
-            Terminal.print(0, format("Time left: {} day, {}h {}m {}s", day, hrs, mins, remains));
+            Terminal.print(0, format("⏱️Time left: {} day, {}h {}m {}s", day, hrs, mins, remains));
             MenuItem[] items;
-            items.push(MenuItem("Buy token", "", tvm.functionId(buyNftFinally)));
-            items.push(MenuItem("Restart","",tvm.functionId(restart)));
-            Menu.select("You can buy this NFT", "", items);            
+            items.push(MenuItem("💲Buy token", "", tvm.functionId(buyNftFinally)));
+            items.push(MenuItem("↩️Restart","",tvm.functionId(restart)));
+            Menu.select("✔️You can buy this NFT", "", items);            
         }
         else{
             MenuItem[] items;
-            Terminal.print(0, format("Is tradable?: No"));
-            items.push(MenuItem("Restart","",tvm.functionId(restart)));
-            Menu.select("You can't buy this NFT", "", items);
+            Terminal.print(0, format("💱Is tradable?: No"));
+            items.push(MenuItem("↩️Restart","",tvm.functionId(restart)));
+            Menu.select("❌You can't buy this NFT", "", items);
         }
          
     }
 
     function buyNftFinally() public view{
+        TvmCell payload = tvm.encodeBody(
+            DirectSell.buyNftToken
+        );
         optional(uint256) pubkey;
-        DirectSell(_addrDirectSell).buyNftToken{
+        IMultisig(_addrMultisig).sendTransaction{
             abiVer: 2,
             extMsg: true,
+            sign: true,
             pubkey: pubkey,
-            callbackId:tvm.functionId(onBuySuccess),
-            onErrorId: tvm.functionId(onBuyError),
             time: uint64(now),
             expire: 0,
-            sign: true,
+            callbackId:tvm.functionId(onBuySuccess),
+            onErrorId: tvm.functionId(onBuyError),            
             signBoxHandle: _keyHandle
-        }();
+        }(_addrDirectSell, 0 ton, true, 3, payload);
     }
     
     function onBuySuccess() public {
-        Terminal.print(0, "Token is already yours!");
+        Terminal.print(0, "✔️Token is already yours!");
         restart();
     }
 
     function onBuyError(uint32 sdkError, uint32 exitCode) public{
-        Terminal.print(0, format("Sdk error {}. Exit code {}.", sdkError, exitCode));
+        Terminal.print(0, format("🔴Sdk error {}. Exit code {}.", sdkError, exitCode));
         restart();
     }
 
@@ -177,7 +180,7 @@ contract BuyDebot is Debot, Upgradable{
     }  
     
     function attachMultisig() public {
-        AddressInput.get(tvm.functionId(saveMultisig), "Enter Multi-Signature Wallet address: ");
+        AddressInput.get(tvm.functionId(saveMultisig), "📝Enter Multi-Signature Wallet address: ");
     }
 
      function saveMultisig(address value) public {
