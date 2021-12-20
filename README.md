@@ -104,6 +104,7 @@ Also our team developed an NFT DeBot, which is the tool for minting NFTs.
   
   ![image](https://user-images.githubusercontent.com/55970327/146754584-1537a4d9-0894-4115-a331-dbce14efd015.png)
 
+![image](https://user-images.githubusercontent.com/55970327/146754699-8f9d90f4-f089-4446-a2d1-04f5ac2e043f.png)
 
  </ul></li>
  
