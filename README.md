@@ -68,6 +68,12 @@ One to two paragraph statement about your product and what it does.
 <li>  Сollection set have JSON format  </li>  
  
  ![image](https://user-images.githubusercontent.com/55970327/146724354-6939da9f-d293-46f8-9a9d-93d3722ca94e.png)
+ 
+ <li>  You can check your collections in section "Get a list of tokens" </li>  
+
+![image](https://user-images.githubusercontent.com/55970327/146744353-ee80e54f-0f73-4a69-88f6-9d07cff1b553.png)
+ 
+ ## Minting debot
 
  
 
