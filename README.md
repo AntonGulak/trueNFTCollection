@@ -26,7 +26,6 @@ One to two paragraph statement about your product and what it does.
 <ul dir="auto">
 <li>Compile <code>npm run build</code></li>
 <li>Start <code>npm run start</code></li>
-
 </ul>
 
 ## Usage site example
@@ -74,7 +73,28 @@ One to two paragraph statement about your product and what it does.
 ![image](https://user-images.githubusercontent.com/55970327/146744353-ee80e54f-0f73-4a69-88f6-9d07cff1b553.png)
  
  ## Minting debot
+ 
+  <li> When you are deploying debot, you get Nftroot address and Minting debot address (check your terminal)  </li>
 
+<ul dir="auto">
+<code> NftDebot contract was deployed at address: 0:e92acd6a39f8b4fbbfaa25c8e8c6598846844f370af5c5dee26a84547e16d761</code> <BR>
+<code> NftRoot contract was deployed at address: 0:45b5af6f7d4d2828fda6ac86a744d300413839d24e110387870e1f5249d2fd00</code>
+</ul>
+ 
+ <li> You can use The DeBot for tokens minting in ton.surf, in the terminal, or at the other services.  </li>
+ 
+ <p> <li> In the beginning, the user should attach:   </p>
+ <ul>
+<li> 1) the wallet from which transactions will be made, the address of NFTRoot, that contains a collection of rarities and sign all operations via private and public keys.  </li> 
+<li> 2) The address of NFTRoot  </li> 
+  
+ ![image](https://user-images.githubusercontent.com/55970327/146750484-f869cef7-0ee5-4ae5-ab01-5568b03dc651.png)
+ 
+  <p> <li> Then you should to type the rarity of token and all additional parameters  </p>
+  
+![image](https://user-images.githubusercontent.com/55970327/146753180-b12697d7-d9b1-4771-a41e-22db50545c99.png)
+
+ </ul></li>
  
 
  
