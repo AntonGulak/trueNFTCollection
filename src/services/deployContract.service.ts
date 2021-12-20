@@ -77,12 +77,13 @@ export class DeployContractService {
 
         const tvc = fs.readFileSync(path.resolve(compilationPath, contractName + ".tvc"), {encoding: 'base64'});
         const abi = await JSON.parse(fs.readFileSync(path.resolve(compilationPath, contractName + '.abi.json')).toString());
-        let settings = JSON.parse(fs.readFileSync(globals.SETTINGS_PATH).toString());
+        const keys = await TonClient.default.crypto.generate_random_sign_keys();
+
         const contractAcc = new Account({
             abi: abi,
             tvc: tvc,
         }, {
-            signer: signerKeys(settings.KEYS),
+            signer: signerKeys(keys),
             client: this.client,
         });
         return contractAcc;
